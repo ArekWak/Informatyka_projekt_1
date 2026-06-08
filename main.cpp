@@ -5,6 +5,9 @@
 //2-->trafiony
 //3-->zatopiony
 //4-->muszą być puste
+//5-->trafione pudło
+
+
 using namespace std;
 int t[10][10];
 int p[10][10];
@@ -23,6 +26,7 @@ void wyswietl_gracz(){
             if(p[i][j]==0 || p[i][j]==1|| p[i][j]==4) cout << "[_]";
             if(p[i][j]==2) cout << "[X]";
             if(p[i][j]==3) cout << "[Z]";
+            if(p[i][j]==5) cout << "[-]";
     }
     cout<<endl;
     }
@@ -32,10 +36,13 @@ int main() {
 cout << "Witaj marynazu" << endl;
 wyswietl_gracz();
 
-cout<< "Podaj wspolrzedne statku czteromasztowego:"<<endl;
+/*cout<< "Podaj wspolrzedne statku czteromasztowego:"<<endl;
 for (int i=0; i<4; i++){
 int a,b;
-cin >> a >> b;
+cout<<"Rzad: ";
+cin>>a;
+cout<<"Kolumna: ";
+cin>>b;
 t[a-1][b-1] = 1;
 wyswietl_gracz();
 }
@@ -44,7 +51,10 @@ for(int i=0; i<2;i++){
 cout<< "Podaj wspolrzedne  statku trzymasztowego:"<<endl;
 for (int i=0; i<3; i++){
 int a,b;
-cin >> a >> b;
+cout<<"Rzad: ";
+cin>>a;
+cout<<"Kolumna: ";
+cin>>b;
 t[a-1][b-1] = 1;
 wyswietl_gracz();
 }
@@ -54,7 +64,10 @@ for(int i=0; i<3;i++){
 cout<< "Podaj wspolrzedne statku dwumasztowego "<<endl;
 for (int i=0; i<2; i++){
 int a,b;
-cin >> a >> b;
+cout<<"Rzad: ";
+cin>>a;
+cout<<"Kolumna: ";
+cin>>b;
 t[a-1][b-1] = 1;
 wyswietl_gracz();
 }
@@ -64,12 +77,15 @@ for(int i=0;i<4;i++){
 cout<< "Podaj wspolrzedne statku jednomasztowego "<<endl;
 for (int i=0; i<1; i++){
 int a,b;
-cin >> a >> b;
+cout<<"Rzad: ";
+cin>>a;
+cout<<"Kolumna: ";
+cin>>b;
 t[a-1][b-1] = 1;
 wyswietl_gracz();
 }
 }
-
+*/
 //Wybieraniie miejs statków zakończyone
 
 int a=rand() % 9, b=rand() % 9;
@@ -143,5 +159,42 @@ for(int i=0; i<10; i++){
 }   
 //losowanie miejsc przez komputer zakonczone
 //strzelanie
-//do{}while()
+int licz;
+do{
+licz=0;
+//strzelanie gracza
+
+    cout<<"Podaj wspolrzedne strzalu:"<<endl;
+    int x,y;
+    cout<<"Rzad: ";
+    cin>>x;
+    cout<<"Kolumna: ";
+    cin>>y;
+    x=x-1;
+    y=y-1;
+    if(p[x][y]==0){
+        cout<<"Pudlo."<<endl;
+        p[x][y]=5;
+        wyswietl_gracz();
+    }
+    if (p[x][y]==1){
+        p[x][y]=2;
+            if(p[x-1][y-1]!=1 && p[x-1][y]!=1 && p[x-1][y+1]!=1 && p[x][y-1]!=1 && p[x][y]!=1 && p[x][y+1]!=1 && p[x+1][y-1]!=1 && p[x+1][y]!=1 && p[x+1][y+1]!=1){cout<<"Trafiony zatopiony."<<endl;
+            p[x][y]=3;}
+            else{ cout<<"Trafiony."<<endl;}
+    
+    wyswietl_gracz();
+
+
+
 }
+for(int i=0; i<10; i++){
+    for(int j=0; j<10; j++){
+    if(p[i][j]==1) licz++;
+    if(t[i][j]==1) licz++;
+    }
+    }
+}while(licz!= 0);
+}
+//trzeba poprawic zatopione bo gdy strzelimy w srodek i zaczniemy w jedną strone to i tak napisze ze zatopiony mimo ze reszta statku jest nietrafiona !!!!  
+//wyłączanie programu ZAWSZE ctrl+c
