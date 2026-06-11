@@ -202,7 +202,10 @@ for(int i=0; i<10; i++){
 {
 int r,k;
 cout << "Podaj wspolrzedne strzalu: "<<endl;
-cin >> r >> k;
+cout<<"Rzad: ";
+    cin>>r;
+    cout<<"Kolumna: ";
+    cin>>k;
 if(p[r-1][k-1]==0)
 {
     cout << "Pudlo!"<<endl;
