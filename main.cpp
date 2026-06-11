@@ -198,3 +198,35 @@ for(int i=0; i<10; i++){
 }
 //trzeba poprawic zatopione bo gdy strzelimy w srodek i zaczniemy w jedną strone to i tak napisze ze zatopiony mimo ze reszta statku jest nietrafiona !!!!  
 //wyłączanie programu ZAWSZE ctrl+c
+/* void strzelanie_gracza()
+{
+int r,k;
+cout << "Podaj wspolrzedne strzalu: "<<endl;
+cin >> r >> k;
+if(p[r-1][k-1]==0)
+{
+    cout << "Pudlo!"<<endl;
+}
+else if(p[r-1][k-1]==1)
+{
+    cout << "Trafiony!"<<endl;
+    p[r-1][k-1]=2;
+    r=r-1;
+    k=k-1;
+    if(p[a][b]==2){
+    if(p[r][k-1]==0 && p[r][k+1]==0 && p[r-1][k]==0 && p[r+1][k]==0)
+    {
+    cout << "Zatopiony!"<<endl;
+    }
+    else if(p[r][k]==14){
+
+    }
+    else if(p[r][k]==13){
+
+    }
+    else if(p[r][k]==12){
+
+    }
+    }
+}
+}*/
