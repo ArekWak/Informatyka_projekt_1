@@ -10,6 +10,10 @@
 // 4-->muszą być puste
 // 5-->trafione pudło
 
+//umieszczane przez komputer:
+//dwumasztowe-pion
+//trzymasztowe-poziom
+//czteromasztowe-pion
 using namespace std;
 int t[10][10];
 int p[10][10];
@@ -89,6 +93,34 @@ void strzelanie_gracza()
     }
     else if (p[r - 1][k - 1] == 13)
     {
+        r=r-1;
+        k=k-1;
+        if(p[r][k+1]==2 && p[r][k-1]==2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;  
+            p[r][k+1]=3;
+            p[r][k-1]=3;
+            p[r][k]=3;
+        }
+        else if(p[r][k+1]==2 && p[r][k+2]==2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k+1]=3;
+            p[r][k+2]=3;
+            p[r][k]=3;
+        }
+        else if(p[r][k-1]==2 && p[r][k-2]==2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k-2]=3;
+            p[r][k-1]=3;
+            p[r][k]=3;
+        }
+        else
+        {
+            cout << "TRAFIONY!" << endl;
+            p[r][k] = 2;
+        }
     }
     else if (p[r - 1][k - 1] == 14)
     {
