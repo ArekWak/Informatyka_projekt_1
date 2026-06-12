@@ -1,7 +1,10 @@
 #include <iostream>
 #include<bits/stdc++.h>
 //0-->pusto
-//1-->statek
+//11-->statek jednomasztowy
+//12-->statek dwumasztowy
+//13-->statek trzymasztowy
+//14-->statek czteromasztowy
 //2-->trafiony
 //3-->zatopiony
 //4-->muszą być puste
@@ -18,18 +21,60 @@ void wyswietl_gracz(){
     if (i==9) cout<<"10. ";
     for(int j=0; j<10; j++){
             if(t[i][j]==0) cout << "[_]";
-            if(t[i][j]==1) cout << "[O]";
+            if(t[i][j]==14 || t[i][j]==13 || t[i][j]==12 || t[i][j]==11) cout << "[O]";
     }
     if(i<9) cout<<"     "<<i+1<<".  ";
     if (i==9) cout<<"     10. ";
     for(int j=0; j<10; j++){
-            if(p[i][j]==0 || p[i][j]==1|| p[i][j]==4) cout << "[_]";
+            if(p[i][j]==0 || p[i][j]==4 || p[i][j]==14 || p[i][j]==13 || p[i][j]==12 || p[i][j]==11) cout << "[_]";
             if(p[i][j]==2) cout << "[X]";
             if(p[i][j]==3) cout << "[Z]";
             if(p[i][j]==5) cout << "[-]";
     }
     cout<<endl;
     }
+}
+void strzelanie_gracza()
+{
+int r,k;
+cout << "Podaj wspolrzedne strzalu: "<<endl;
+cout<<"Rzad: ";
+    cin>>r;
+    cout<<"Kolumna: ";
+    cin>>k;
+if(p[r-1][k-1]==0)
+{
+    cout << "Pudlo!"<<endl;
+    p[r-1][k-1]=5;
+}
+else if(p[r-1][k-1]==11)
+{
+    cout << "Trafiony Zatopiony!"<<endl;
+    p[r-1][k-1]=3;
+}
+else if(p[r-1][k-1]==12)
+{
+r=r-1;
+k=k-1;
+if(p[r][k-1]==12 || p[r-1][k]==12 || p[r+1][k]==12 || p[r][k+1]==12)
+{
+    cout << "Trafiony!"<<endl;
+    p[r][k]=2;
+}
+else
+{
+    cout << "Trafiony Zatopiony!"<<endl;
+    p[r][k]=3;
+}
+else if(p[r-1][k-1]==13)
+{;
+ 
+}
+else if(p[r-1][k-1]==14)
+{
+
+}
+wyswietl_gracz();
 }
 int main() {
         srand(time(NULL));
@@ -43,7 +88,7 @@ cout<<"Rzad: ";
 cin>>a;
 cout<<"Kolumna: ";
 cin>>b;
-t[a-1][b-1] = 1;
+t[a-1][b-1] = 14;
 wyswietl_gracz();
 }
 
@@ -55,7 +100,7 @@ cout<<"Rzad: ";
 cin>>a;
 cout<<"Kolumna: ";
 cin>>b;
-t[a-1][b-1] = 1;
+t[a-1][b-1] = 13;
 wyswietl_gracz();
 }
 }
@@ -68,7 +113,7 @@ cout<<"Rzad: ";
 cin>>a;
 cout<<"Kolumna: ";
 cin>>b;
-t[a-1][b-1] = 1;
+t[a-1][b-1] = 12;
 wyswietl_gracz();
 }
 }
@@ -81,7 +126,7 @@ cout<<"Rzad: ";
 cin>>a;
 cout<<"Kolumna: ";
 cin>>b;
-t[a-1][b-1] = 1;
+t[a-1][b-1] = 11;
 wyswietl_gracz();
 }
 }
@@ -90,10 +135,10 @@ wyswietl_gracz();
 
 int a=rand() % 9, b=rand() % 9;
 if(b>5) b=5;
-p[b][a]=1;
-p[b+1][a]=1;
-p[b+2][a]=1;
-p[b+3][a]=1;
+p[b][a]=14;
+p[b+1][a]=14;
+p[b+2][a]=14;
+p[b+3][a]=14;
 
  for(int i=0; i<10; i++){
     for(int j=0; j<10; j++){
@@ -109,9 +154,9 @@ for(int i=0; i<2;i++){
     if(a>7) a=7;
     }while(p[b-1][a]!=0 || p[b-1][a+1]!=0 || p[b-1][a+2]!=0 || p[b][a-1]!=0 || p[b][a]!=0 || p[b][a+1]!=0 && p[b][a+2]!=0 || p[b][a+3]!=0 || p[b+1][a]!=0 || p[b+1][a+1]!=0 || p[b+1][a+2]!=0 || p[b-1][a-1]!=0 || p[b+1][a-1]!=0 || p[b-1][a+3]!=0 || p[b+1][a+3]!=0);
 
-    p[b][a]=1;
-    p[b][a+1]=1;
-    p[b][a+2]=1;
+    p[b][a]=13;
+    p[b][a+1]=13;
+    p[b][a+2]=13;
 
 for(int i=0; i<10; i++){
     for(int j=0; j<10; j++){
@@ -129,8 +174,8 @@ for(int i=0; i<3;i++){
     if(b>8) b=8;
     }while(p[b-1][a]!=0 || p[b][a-1]!=0 || p[b][a+1]!=0 || p[b][a]!=0 || p[b+1][a+1]!=0 || p[b+1][a-1]!=0 || p[b+1][a]!=0 || p[b+2][a]!=0 || p[b-1][a-1]!=0 || p[b-1][a+1]!=0 || p[b+2][a-1]!=0 || p[b+2][a+1]!=0);
 
-    p[b][a]=1;
-    p[b+1][a]=1;
+    p[b][a]=12;
+    p[b+1][a]=12;
 
 for(int i=0; i<10; i++){
     for(int j=0; j<10; j++){
@@ -147,7 +192,7 @@ for(int i=0; i<4;i++){
     a=rand() % 10, b=rand() % 10;
     }while(p[b-1][a-1]!=0 || p[b-1][a]!=0 || p[b-1][a+1]!=0 || p[b][a-1]!=0 || p[b][a]!=0 || p[b][a+1]!=0 || p[b+1][a-1]!=0 || p[b+1][a]!=0 || p[b+1][a+1]!=0);
 
-    p[b][a]=1;
+    p[b][a]=11;
 
 for(int i=0; i<10; i++){
     for(int j=0; j<10; j++){
@@ -163,73 +208,16 @@ int licz;
 do{
 licz=0;
 //strzelanie gracza
-
-    cout<<"Podaj wspolrzedne strzalu:"<<endl;
-    int x,y;
-    cout<<"Rzad: ";
-    cin>>x;
-    cout<<"Kolumna: ";
-    cin>>y;
-    x=x-1;
-    y=y-1;
-    if(p[x][y]==0){
-        cout<<"Pudlo."<<endl;
-        p[x][y]=5;
-        wyswietl_gracz();
-    }
-    if (p[x][y]==1){
-        p[x][y]=2;
-            if(p[x-1][y-1]!=1 && p[x-1][y]!=1 && p[x-1][y+1]!=1 && p[x][y-1]!=1 && p[x][y]!=1 && p[x][y+1]!=1 && p[x+1][y-1]!=1 && p[x+1][y]!=1 && p[x+1][y+1]!=1){cout<<"Trafiony zatopiony."<<endl;
-            p[x][y]=3;}
-            else{ cout<<"Trafiony."<<endl;}
-    
-    wyswietl_gracz();
+strzelanie_gracza();
 
 
-
-}
 for(int i=0; i<10; i++){
     for(int j=0; j<10; j++){
-    if(p[i][j]==1) licz++;
-    if(t[i][j]==1) licz++;
+    if(p[i][j]==14 || p[i][j]==13 || p[i][j]==12 || p[i][j]==11) licz++;
+    if(t[i][j]==14 || t[i][j]==13 || t[i][j]==12 || t[i][j]==11) licz++;
     }
     }
 }while(licz!= 0);
 }
 //trzeba poprawic zatopione bo gdy strzelimy w srodek i zaczniemy w jedną strone to i tak napisze ze zatopiony mimo ze reszta statku jest nietrafiona !!!!  
 //wyłączanie programu ZAWSZE ctrl+c
-/* void strzelanie_gracza()
-{
-int r,k;
-cout << "Podaj wspolrzedne strzalu: "<<endl;
-cout<<"Rzad: ";
-    cin>>r;
-    cout<<"Kolumna: ";
-    cin>>k;
-if(p[r-1][k-1]==0)
-{
-    cout << "Pudlo!"<<endl;
-}
-else if(p[r-1][k-1]==1)
-{
-    cout << "Trafiony!"<<endl;
-    p[r-1][k-1]=2;
-    r=r-1;
-    k=k-1;
-    if(p[a][b]==2){
-    if(p[r][k-1]==0 && p[r][k+1]==0 && p[r-1][k]==0 && p[r+1][k]==0)
-    {
-    cout << "Zatopiony!"<<endl;
-    }
-    else if(p[r][k]==14){
-
-    }
-    else if(p[r][k]==13){
-
-    }
-    else if(p[r][k]==12){
-
-    }
-    }
-}
-}*/
