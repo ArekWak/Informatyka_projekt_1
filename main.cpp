@@ -10,10 +10,10 @@
 // 4-->muszą być puste
 // 5-->trafione pudło
 
-//umieszczane przez komputer:
-//dwumasztowe-pion
-//trzymasztowe-poziom
-//czteromasztowe-pion
+// umieszczane przez komputer:
+// dwumasztowe-pion
+// trzymasztowe-poziom
+// czteromasztowe-pion
 using namespace std;
 int t[10][10];
 int p[10][10];
@@ -84,37 +84,61 @@ void strzelanie_gracza()
         {
             cout << "TRAFIONY ZATOPIONY!" << endl;
             p[r][k] = 3;
-            if(p[r][k - 1] == 2) p[r][k - 1]=3;
-            else if(p[r - 1][k] == 2) p[r - 1][k]=3;
-            else if(p[r + 1][k] == 2) p[r + 1][k]=3;
-            else if(p[r][k + 1] == 2) p[r][k + 1]=3;
-
+            if (p[r][k - 1] == 2)
+                p[r][k - 1] = 3;
+            else if (p[r - 1][k] == 2)
+                p[r - 1][k] = 3;
+            else if (p[r + 1][k] == 2)
+                p[r + 1][k] = 3;
+            else if (p[r][k + 1] == 2)
+                p[r][k + 1] = 3;
         }
     }
     else if (p[r - 1][k - 1] == 13)
     {
-        r=r-1;
-        k=k-1;
-        if(p[r][k+1]==2 && p[r][k-1]==2)
-        {
-            cout << "TRAFIONY ZATOPIONY!" << endl;  
-            p[r][k+1]=3;
-            p[r][k-1]=3;
-            p[r][k]=3;
-        }
-        else if(p[r][k+1]==2 && p[r][k+2]==2)
+        r = r - 1;
+        k = k - 1;
+        if (p[r][k + 1] == 2 && p[r][k - 1] == 2)
         {
             cout << "TRAFIONY ZATOPIONY!" << endl;
-            p[r][k+1]=3;
-            p[r][k+2]=3;
-            p[r][k]=3;
+            p[r][k + 1] = 3;
+            p[r][k - 1] = 3;
+            p[r][k] = 3;
         }
-        else if(p[r][k-1]==2 && p[r][k-2]==2)
+        else if (p[r][k + 1] == 2 && p[r][k + 2] == 2)
         {
             cout << "TRAFIONY ZATOPIONY!" << endl;
-            p[r][k-2]=3;
-            p[r][k-1]=3;
-            p[r][k]=3;
+            p[r][k + 1] = 3;
+            p[r][k + 2] = 3;
+            p[r][k] = 3;
+        }
+        else if (p[r][k - 1] == 2 && p[r][k - 2] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k - 2] = 3;
+            p[r][k - 1] = 3;
+            p[r][k] = 3;
+        }
+        else if (p[r - 1][k] == 2 && p[r + 1][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r + 1][k] = 3;
+            p[r - 1][k] = 3;
+            p[r][k] = 3;
+        }
+        else if (p[r - 2][k] == 2 && p[r - 1][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r - 2][k] = 3;
+            p[r - 1][k] = 3;
+            p[r][k] = 3;
+        }
+        else if (p[r + 2][k] == 2 && p[r + 1][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r + 2][k] = 3;
+            p[r + 1][k] = 3;
+            p[r][k] = 3;
         }
         else
         {
@@ -124,6 +148,77 @@ void strzelanie_gracza()
     }
     else if (p[r - 1][k - 1] == 14)
     {
+        r = r - 1;
+        k = k - 1;
+        if (p[r][k + 1] == 2 && p[r][k + 2] == 2 && p[r][k + 3] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k] = 3;
+            p[r][k + 1] = 3;
+            p[r][k + 2] = 3;
+            p[r][k + 3] = 3;
+        }
+        else if (p[r][k + 1] == 2 && p[r][k + 2] == 2 && p[r][k - 1] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k] = 3;
+            p[r][k + 1] = 3;
+            p[r][k + 2] = 3;
+            p[r][k - 1] = 3;
+        }
+        else if (p[r][k + 1] == 2 && p[r][k - 2] == 2 && p[r][k - 1] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k] = 3;
+            p[r][k + 1] = 3;
+            p[r][k - 2] = 3;
+            p[r][k - 1] = 3;
+        }
+        else if (p[r][k - 1] == 2 && p[r][k - 2] == 2 && p[r][k - 3] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k] = 3;
+            p[r][k - 3] = 3;
+            p[r][k - 2] = 3;
+            p[r][k - 1] = 3;
+        }
+        else if (p[r - 1][k] == 2 && p[r - 2][k] == 2 && p[r - 3][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r - 1][k] = 3;
+            p[r - 2][k] = 3;
+            p[r - 3][k] = 3;
+            p[r][k] = 3;
+        }
+        else if (p[r + 1][k] == 2 && p[r - 1][k] == 2 && p[r - 2][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r - 2][k] = 3;
+            p[r - 1][k] = 3;
+            p[r][k] = 3;
+            p[r + 1][k] = 3;
+        }
+        else if (p[r - 1][k] == 2 && p[r + 1][k] == 2 && p[r + 2][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r - 1][k] = 3;
+            p[r][k] = 3;
+            p[r + 1][k] = 3;
+            p[r + 2][k] = 3;
+        }
+        else if (p[r + 1][k] == 2 && p[r + 2][k] == 2 && p[r + 3][k] == 2)
+        {
+            cout << "TRAFIONY ZATOPIONY!" << endl;
+            p[r][k] = 3;
+            p[r + 1][k] = 3;
+            p[r + 2][k] = 3;
+            p[r + 3][k] = 3;
+        }
+        else
+        {
+            cout << "TRAFIONY!" << endl;
+            p[r][k] = 2;
+        }
     }
     wyswietl_gracz();
 }
@@ -131,10 +226,58 @@ void strzelanie_gracza()
 int main()
 {
     srand(time(NULL));
-    cout << "Witaj marynazu" << endl;
+
+    cout << "Witaj marynarzu" << endl;
+
+    // umieszczaanie statkow
+    // czteromasztowy
+    cout << "Umieszczanie statku czteromasztowego";
+    cout << "(pion-->'|'/poziom-->'-')" << endl;
+    char kierunek;
+    cin >> kierunek;
+    if (kierunek == '|')
+    {
+        int c, d;
+        cout << "Podaj wspolrzedne poczatku statku: " << endl
+             << "Rzad: ";
+        cin >> d;
+        cout << "Kolumna: ";
+        cin >> c;
+        c = c - 1;
+        d = d - 1;
+        if (d > 6)
+        {
+            d = 6;
+            cout<<"Zly numer rzedu -- rzad wynosi 7"<<endl;
+        }
+        t[d][c] = 14;
+        t[d + 1][c] = 14;
+        t[d + 2][c] = 14;
+        t[d + 3][c] = 14;
+    }
+    else if (kierunek == '-')
+    {
+        int c, d;
+        cout << "Podaj wspolrzedne poczatku statku: " << endl
+             << "Rzad: ";
+        cin >> d;
+        cout << "Kolumna: ";
+        cin >> c;
+        c = c - 1;
+        d = d - 1;
+        if (c > 6)
+        {
+            c = 6;
+            cout<<"Zly numer kolumny -- kolumna wynosi 7"<<endl;
+        }
+        t[d][c] = 14;
+        t[d][c + 1] = 14;
+        t[d][c + 2] = 14;
+        t[d][c + 3] = 14;
+    }
     wyswietl_gracz();
-    
-// wpisywanie wspólrzędnych
+    // trzymaszxtowe
+    //  wpisywanie wspólrzędnych
 
     /*cout<< "Podaj wspolrzedne statku czteromasztowego:"<<endl;
     for (int i=0; i<4; i++){
@@ -186,8 +329,8 @@ int main()
     }
     }
     */
-// Wybieraniie miejsc statków zakończone
-//losowanie przez komputer
+    // Wybieraniie miejsc statków zakończone
+    // losowanie przez komputer
 
     int a = rand() % 9, b = rand() % 9;
     if (b > 5)
@@ -234,14 +377,14 @@ int main()
         p[b][a] = 11;
     }
     for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
         {
-            for (int j = 0; j < 10; j++)
-            {
-                cout << p[i][j] << " ";
-            }
-            cout << endl;
+            cout << p[i][j] << " ";
         }
         cout << endl;
+    }
+    cout << endl;
     // losowanie miejsc przez komputer zakonczone
     // strzelanie
     int licz;
