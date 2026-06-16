@@ -231,7 +231,7 @@ int main()
 
     // umieszczaanie statkow
     // czteromasztowy
-    cout << "Umieszczanie statku czteromasztowego";
+/*  cout << "Umieszczanie statku czteromasztowego";
     cout << "(pion-->'|'/poziom-->'-')" << endl;
     char kierunek;
     cin >> kierunek;
@@ -248,7 +248,7 @@ int main()
         if (d > 6)
         {
             d = 6;
-            cout<<"Zly numer rzedu -- rzad wynosi 7"<<endl;
+            cout << "Zly numer rzedu -- rzad wynosi 7" << endl;
         }
         t[d][c] = 14;
         t[d + 1][c] = 14;
@@ -268,67 +268,176 @@ int main()
         if (c > 6)
         {
             c = 6;
-            cout<<"Zly numer kolumny -- kolumna wynosi 7"<<endl;
+            cout << "Zly numer kolumny -- kolumna wynosi 7" << endl;
         }
         t[d][c] = 14;
         t[d][c + 1] = 14;
         t[d][c + 2] = 14;
         t[d][c + 3] = 14;
     }
+    else
+    {
+        cout << "Zly znak - koniec gry";
+        return 0;
+    }
     wyswietl_gracz();
     // trzymaszxtowe
-    //  wpisywanie wspólrzędnych
+    for (int i = 0; i < 2; i++)
+    {
+        cout << "Umieszczanie statku trzymasztowego";
+        cout << "(pion-->'|'/poziom-->'-') " << endl;
+        cin >> kierunek;
+        int c, d;
+        if (kierunek == '|')
+        {
+            cout << "Podaj wspolrzedne poczatku statku: " << endl
+                 << "Rzad: ";
+            cin >> d;
+            cout << "Kolumna: ";
+            cin >> c;
+            c = c - 1;
+            d = d - 1;
+            if (d > 7)
+            {
+                d = 7;
+                cout << "Zly numer rzedu -- rzad wynosi 8" << endl;
+            }
+            if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c - 1] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d + 1][c - 1] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 2][c - 1] == 0 && t[d + 2][c] == 0 && t[d + 2][c + 1] == 0 && t[d + 3][c - 1] == 0 && t[d + 3][c] == 0 && t[d + 3][c + 1] == 0)
+            {
+                t[d][c] = 13;
+                t[d + 1][c] = 13;
+                t[d + 2][c] = 13;
+            }
+            else
+            {
+                cout << "Zle wspolrzedne" << endl;
+                i--;
+            }
+        }
+        else if (kierunek == '-')
+        {
+            cout << "Podaj wspolrzedne poczatku statku: " << endl
+                 << "Rzad: ";
+            cin >> d;
+            cout << "Kolumna: ";
+            cin >> c;
+            c = c - 1;
+            d = d - 1;
+            if (c > 7)
+            {
+                c = 7;
+                cout << "Zly numer kolumny -- kolumna wynosi 8" << endl;
+            }
+            if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c + 2] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d][c + 2] == 0 && t[d][c + 3] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 1][c + 2] == 0 && t[d - 1][c - 1] == 0 && t[d + 1][c - 1] == 0 && t[d - 1][c + 3] == 0 && t[d + 1][c + 3] == 0)
+            {
+                t[d][c] = 13;
+                t[d][c + 1] = 13;
+                t[d][c + 2] = 13;
+            }
+            else
+            {
+                cout << "Zle wspolrzedne" << endl;
+                i--;
+            }
+        }
+        else
+        {
+            cout << "Zly znak - koniec gry";
+            return 0;
+        }
+        wyswietl_gracz();
+    }
+    // dwumasztowe
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "Umieszczanie statku dwumasztowego";
+        cout << "(pion-->'|'/poziom-->'-') " << endl;
+        cin >> kierunek;
+        int c, d;
+        if (kierunek == '|')
+        {
+            cout << "Podaj wspolrzedne poczatku statku: " << endl
+                 << "Rzad: ";
+            cin >> d;
+            cout << "Kolumna: ";
+            cin >> c;
+            c = c - 1;
+            d = d - 1;
+            if (d > 8)
+            {
+                d = 8;
+                cout << "Zly numer rzedu -- rzad wynosi 9" << endl;
+            }
+            if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c - 1] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d + 1][c - 1] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 2][c - 1] == 0 && t[d + 2][c] == 0 && t[d + 2][c + 1] == 0)
+            {
+                t[d][c] = 13;
+                t[d + 1][c] = 13;
+            }
+            else
+            {
+                cout << "Zle wspolrzedne" << endl;
+                i--;
+            }
+        }
+        else if (kierunek == '-')
+        {
+            cout << "Podaj wspolrzedne poczatku statku: " << endl
+                 << "Rzad: ";
+            cin >> d;
+            cout << "Kolumna: ";
+            cin >> c;
+            c = c - 1;
+            d = d - 1;
+            if (c > 8)
+            {
+                c = 8;
+                cout << "Zly numer kolumny -- kolumna wynosi 9" << endl;
+            }
+            if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c + 2] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d][c + 2] == 0  && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 1][c + 2] == 0 && t[d - 1][c - 1] == 0 && t[d + 1][c - 1] == 0)
+            {
+                t[d][c] = 13;
+                t[d][c + 1] = 13;
+            }
+            else
+            {
+                cout << "Zle wspolrzedne" << endl;
+                i--;
+            }
+        }
+        else
+        {
+            cout << "Zly znak - koniec gry";
+            return 0;
+        }
+        wyswietl_gracz();
+    }
+    //jednomasztowe
 
-    /*cout<< "Podaj wspolrzedne statku czteromasztowego:"<<endl;
-    for (int i=0; i<4; i++){
-    int a,b;
-    cout<<"Rzad: ";
-    cin>>a;
-    cout<<"Kolumna: ";
-    cin>>b;
-    t[a-1][b-1] = 14;
-    wyswietl_gracz();
-    }
-
-    for(int i=0; i<2;i++){
-    cout<< "Podaj wspolrzedne  statku trzymasztowego:"<<endl;
-    for (int i=0; i<3; i++){
-    int a,b;
-    cout<<"Rzad: ";
-    cin>>a;
-    cout<<"Kolumna: ";
-    cin>>b;
-    t[a-1][b-1] = 13;
-    wyswietl_gracz();
-    }
-    }
-
-    for(int i=0; i<3;i++){
-    cout<< "Podaj wspolrzedne statku dwumasztowego "<<endl;
-    for (int i=0; i<2; i++){
-    int a,b;
-    cout<<"Rzad: ";
-    cin>>a;
-    cout<<"Kolumna: ";
-    cin>>b;
-    t[a-1][b-1] = 12;
-    wyswietl_gracz();
-    }
-    }
-
-    for(int i=0;i<4;i++){
-    cout<< "Podaj wspolrzedne statku jednomasztowego "<<endl;
-    for (int i=0; i<1; i++){
-    int a,b;
-    cout<<"Rzad: ";
-    cin>>a;
-    cout<<"Kolumna: ";
-    cin>>b;
-    t[a-1][b-1] = 11;
-    wyswietl_gracz();
-    }
+    for (int i = 0; i < 4; i++)
+    {
+        int c,d;
+        cout << "Umieszczanie statku jednomasztowego"<<endl;
+        cout << "Podaj wspolrzedne  statku: " << endl
+                 << "Rzad: ";
+            cin >> d;
+            cout << "Kolumna: ";
+            cin >> c;
+            c = c - 1;
+            d = d - 1;
+            
+            if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c - 1] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d + 1][c - 1] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0)
+            {
+                t[d][c] = 13;
+            }
+            else
+            {
+                cout << "Zle wspolrzedne" << endl;
+                i--;
+            }
+        wyswietl_gracz();
     }
     */
+
     // Wybieraniie miejsc statków zakończone
     // losowanie przez komputer
 
@@ -347,7 +456,7 @@ int main()
             a = rand() % 10, b = rand() % 10;
             if (a > 7)
                 a = 7;
-        } while (p[b - 1][a] != 0 || p[b - 1][a + 1] != 0 || p[b - 1][a + 2] != 0 || p[b][a - 1] != 0 || p[b][a] != 0 || p[b][a + 1] != 0 && p[b][a + 2] != 0 || p[b][a + 3] != 0 || p[b + 1][a] != 0 || p[b + 1][a + 1] != 0 || p[b + 1][a + 2] != 0 || p[b - 1][a - 1] != 0 || p[b + 1][a - 1] != 0 || p[b - 1][a + 3] != 0 || p[b + 1][a + 3] != 0);
+        } while (p[b - 1][a] != 0 || p[b - 1][a + 1] != 0 || p[b - 1][a + 2] != 0 || p[b][a - 1] != 0 || p[b][a] != 0 || p[b][a + 1] != 0 || p[b][a + 2] != 0 || p[b][a + 3] != 0 || p[b + 1][a] != 0 || p[b + 1][a + 1] != 0 || p[b + 1][a + 2] != 0 || p[b - 1][a - 1] != 0 || p[b + 1][a - 1] != 0 || p[b - 1][a + 3] != 0 || p[b + 1][a + 3] != 0);
 
         p[b][a] = 13;
         p[b][a + 1] = 13;
@@ -376,6 +485,7 @@ int main()
 
         p[b][a] = 11;
     }
+    // wyswietlenie planszy wylosowanej
     for (int i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
@@ -406,5 +516,4 @@ int main()
         }
     } while (licz != 0);
 }
-// trzeba poprawic zatopione bo gdy strzelimy w srodek i zaczniemy w jedną strone to i tak napisze ze zatopiony mimo ze reszta statku jest nietrafiona !!!!
 // wyłączanie programu ZAWSZE ctrl+c
