@@ -8,7 +8,11 @@
 // 2-->trafiony
 // 3-->zatopiony
 // 4-->muszą być puste
-// 5-->trafione pudło
+// 5-->trafio4ne pudło
+
+// 22-->statek dwumasztowy trafiony
+// 23-->statek trzymasztowy trafiony
+// 24-->statek czteromasztowy trafiony
 
 // umieszczane przez komputer:
 // dwumasztowe-pion
@@ -17,6 +21,8 @@
 using namespace std;
 int t[10][10];
 int p[10][10];
+int ost = 3;
+int ost_rzad, ost_kol;
 void wyswietl_gracz()
 {
     cout << "        TWOJA PLANSZA                          PLANSZA KOMPUTERA" << endl
@@ -29,10 +35,16 @@ void wyswietl_gracz()
             cout << "10. ";
         for (int j = 0; j < 10; j++)
         {
-            if (t[i][j] == 0)
+            if (t[i][j] == 0 || t[i][j] == 4)
                 cout << "[_]";
             if (t[i][j] == 14 || t[i][j] == 13 || t[i][j] == 12 || t[i][j] == 11)
                 cout << "[O]";
+            if (t[i][j] == 2)
+                cout << "[X]";
+            if (t[i][j] == 3)
+                cout << "[Z]";
+            if (t[i][j] == 5)
+                cout << "[-]";
         }
         if (i < 9)
             cout << "     " << i + 1 << ".  ";
@@ -52,21 +64,22 @@ void wyswietl_gracz()
         cout << endl;
     }
 }
-/*void strzelanie_komputer()
+
+void strzelanie_komputer()
 {
     // ostatni => ostatni trafiony
-    if (ostatni == 3) // zatopiony
+    if (ost == 3) // zatopiony
     {
-        int rz = rand() % 9, kol = rand() % 9;
+        int rz = rand() % 10, kol = rand() % 10;
         if (t[rz][kol] == 4 || t[rz][kol] == 3 || t[rz][kol] == 2)
         {
             do
             {
-                rz = rand() % 9;
-                kol = rand() % 9;
+                rz = rand() % 10;
+                kol = rand() % 10;
             } while (t[rz][kol] != 4 && t[rz][kol] != 3 && t[rz][kol] != 2);
         }
-        cout<<"Rząd: "<<rz<<"Kolumna: "<<kol;
+        cout << "Rzad: " << rz + 1 << " Kolumna: " << kol + 1 << endl;
         if (t[rz][kol] == 0)
         {
             t[rz][kol] = 5;
@@ -74,34 +87,383 @@ void wyswietl_gracz()
         else if (t[rz][kol] == 11)
         {
             t[rz][kol] = 3;
-            ostatni = 3;
-            t[rz-1][kol-1] = 4;
-            t[rz-1][kol+1] = 4;
-            t[rz-1][kol] = 4;
-            t[rz+1][kol-1] = 4;
-            t[rz+1][kol+1] = 4;
-            t[rz+1][kol] = 4;
-            t[rz][kol-1] = 4;
-            t[rz][kol+1] = 4;
+            t[rz - 1][kol - 1] = 4;
+            t[rz - 1][kol + 1] = 4;
+            t[rz - 1][kol] = 4;
+            t[rz + 1][kol - 1] = 4;
+            t[rz + 1][kol + 1] = 4;
+            t[rz + 1][kol] = 4;
+            t[rz][kol - 1] = 4;
+            t[rz][kol + 1] = 4;
         }
         else if (t[rz][kol] == 12)
         {
-            t[rz][kol] == 2;
+            t[rz][kol] = 2;
+            ost = 12;
+            ost_rzad = rz;
+            ost_kol = kol;
         }
         else if (t[rz][kol] == 13)
         {
-             t[rz][kol] == 2;
+            t[rz][kol] = 2;
+            ost = 13;
+            ost_rzad = rz;
+            ost_kol = kol;
         }
         else if (t[rz][kol] == 14)
         {
-             t[rz][kol] == 2;
+            t[rz][kol] = 2;
+            ost = 14;
+            ost_rzad = rz;
+            ost_kol = kol;
         }
     }
-    else if (ostatni == 2) // trafiony
+    else if (ost == 12) // trafiony
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            int d = rand() % 4;
+            if (d == 0)
+            {
+                if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad][ost_kol - 1] == 0)
+                        t[ost_rzad][ost_kol - 1] = 5;
+                    else if (t[ost_rzad][ost_kol - 1] == 12)
+                    {
+                        t[ost_rzad][ost_kol - 1] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else
+                        i--;
+                }
+            }
+            if (d == 1)
+            {
+                if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad + 1][ost_kol] == 0)
+                        t[ost_rzad + 1][ost_kol] = 5;
+                    else if (t[ost_rzad + 1][ost_kol] == 12)
+                    {
+                        t[ost_rzad + 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else
+                        i--;
+                }
+            }
+            if (d == 2)
+            {
+                if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad - 1][ost_kol] == 0)
+                        t[ost_rzad - 1][ost_kol] = 5;
+                    else if (t[ost_rzad - 1][ost_kol] == 12)
+                    {
+                        t[ost_rzad - 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else
+                        i--;
+                }
+            }
+            if (d == 3)
+            {
+                if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad][ost_kol + 1] == 0)
+                        t[ost_rzad][ost_kol + 1] = 5;
+                    else if (t[ost_rzad][ost_kol + 1] == 12)
+                    {
+                        t[ost_rzad][ost_kol + 1] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else
+                        i--;
+                }
+            }
+        }
+    }
+    else if (ost == 13) // trafiony
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            int d = rand() % 4;
+            if (d == 0)
+            {
+                if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad][ost_kol - 1] == 0)
+                        t[ost_rzad][ost_kol - 1] = 5;
+                    else if (t[ost_rzad][ost_kol - 1] == 13)
+                    {
+                        t[ost_rzad][ost_kol - 1] = 2;
+                        ost_kol = ost_kol - 1;
+                        ost = 23;
+                    }
+                    else
+                        i--;
+                }
+            }
+            if (d == 1)
+            {
+                if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad + 1][ost_kol] == 0)
+                        t[ost_rzad + 1][ost_kol] = 5;
+                    else if (t[ost_rzad + 1][ost_kol] == 13)
+                    {
+                        t[ost_rzad + 1][ost_kol] = 2;
+                        ost_rzad = ost_rzad + 1;
+                        ost = 23;
+                    }
+                    else
+                        i--;
+                }
+            }
+            if (d == 2)
+            {
+                if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad - 1][ost_kol] == 0)
+                        t[ost_rzad - 1][ost_kol] = 5;
+                    else if (t[ost_rzad - 1][ost_kol] == 13)
+                    {
+                        t[ost_rzad - 1][ost_kol] = 2;
+                        ost_rzad = ost_rzad - 1;
+                        ost = 23;
+                    }
+                    else
+                        i--;
+                }
+            }
+            if (d == 3)
+            {
+                if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
+                    i--;
+                else
+                {
+                    if (t[ost_rzad][ost_kol + 1] == 0)
+                        t[ost_rzad][ost_kol + 1] = 5;
+                    else if (t[ost_rzad][ost_kol + 1] == 13)
+                    {
+                        t[ost_rzad][ost_kol + 1] = 2;
+                        ost_kol = ost_kol + 1;
+                        ost = 23;
+                    }
+                    else
+                        i--;
+                }
+            }
+        }
+    }
+    else if (ost == 23) // trafiony
+    {
+        if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                int n = rand() % 2;
+                if (n == 0)
+                {
+                    if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad][ost_kol - 1] == 0)
+                            t[ost_rzad][ost_kol - 1] = 5;
+                        else if (t[ost_rzad][ost_kol - 1] == 13)
+                        {
+                            t[ost_rzad][ost_kol - 1] = 3;
+                            t[ost_rzad][ost_kol + 1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+                if (n == 1)
+                {
+                    if (t[ost_rzad][ost_kol + 2] == 4 || t[ost_rzad][ost_kol + 2] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad][ost_kol + 2] == 0)
+                            t[ost_rzad][ost_kol + 2] = 5;
+                        else if (t[ost_rzad][ost_kol + 2] == 13)
+                        {
+                            t[ost_rzad][ost_kol + 2] = 3;
+                            t[ost_rzad][ost_kol + 1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+            }
+        }
+        if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                int n = rand() % 2;
+                if (n == 0)
+                {
+                    if (t[ost_rzad][ost_kol - 2] == 4 || t[ost_rzad][ost_kol - 2] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad][ost_kol - 2] == 0)
+                            t[ost_rzad][ost_kol - 2] = 5;
+                        else if (t[ost_rzad][ost_kol - 2] == 13)
+                        {
+                            t[ost_rzad][ost_kol - 1] = 3;
+                            t[ost_rzad][ost_kol - 2] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+                if (n == 1)
+                {
+                    if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad][ost_kol + 1] == 0)
+                            t[ost_rzad][ost_kol + 1] = 5;
+                        else if (t[ost_rzad][ost_kol + 1] == 13)
+                        {
+                            t[ost_rzad][ost_kol - 1] = 3;
+                            t[ost_rzad][ost_kol + 1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+            }
+        }
+        if (t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                int n = rand() % 2;
+                if (n == 0)
+                {
+                    if (t[ost_rzad + 2][ost_kol] == 4 || t[ost_rzad + 2][ost_kol] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad + 2][ost_kol] == 0)
+                            t[ost_rzad + 2][ost_kol] = 5;
+                        else if (t[ost_rzad + 2][ost_kol] == 13)
+                        {
+                            t[ost_rzad + 2][ost_kol] = 3;
+                            t[ost_rzad + 1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+                if (n == 1)
+                {
+                    if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad - 1][ost_kol] == 0)
+                            t[ost_rzad - 1][ost_kol] = 5;
+                        else if (t[ost_rzad - 1][ost_kol] == 13)
+                        {
+                            t[ost_rzad - 1][ost_kol] = 3;
+                            t[ost_rzad + 1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+            }
+        }
+        if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                int n = rand() % 2;
+                if (n == 0)
+                {
+                    if (t[ost_rzad - 2][ost_kol] == 4 || t[ost_rzad - 2][ost_kol] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad - 2][ost_kol] == 0)
+                            t[ost_rzad - 2][ost_kol] = 5;
+                        else if (t[ost_rzad - 2][ost_kol] == 13)
+                        {
+                            t[ost_rzad - 2][ost_kol] = 3;
+                            t[ost_rzad - 1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+                if (n == 1)
+                {
+                    if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
+                        i--;
+                    else
+                    {
+                        if (t[ost_rzad + 1][ost_kol] == 0)
+                            t[ost_rzad + 1][ost_kol] = 5;
+                        else if (t[ost_rzad + 1][ost_kol] == 13)
+                        {
+                            t[ost_rzad - 1][ost_kol] = 3;
+                            t[ost_rzad + 1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else
+                            i--;
+                    }
+                }
+            }
+        }
+    }
+    else if (ost == 14) // trafiony
     {
     }
+    wyswietl_gracz();
 }
-*/
 
 void strzelanie_gracza()
 {
@@ -611,7 +973,10 @@ int main()
     {
         licz = 0;
         // strzelanie gracza
+        cout << "Teraz twoj strzal" << endl;
         strzelanie_gracza();
+        cout << "Teraz kolej przeciwnika" << endl;
+        strzelanie_komputer();
 
         for (int i = 0; i < 10; i++)
         {
