@@ -79,7 +79,7 @@ void strzelanie_komputer()
                 {
                     rz = rand() % 10;
                     kol = rand() % 10;
-                } while (t[rz][kol] != 4 && t[rz][kol] != 3 && t[rz][kol] != 2);
+                } while (t[rz][kol] != 4 && t[rz][kol] != 3 && t[rz][kol] != 2 && t[rz][kol] != 5);
             }
 
             if (t[rz][kol] == 0)
@@ -1008,9 +1008,9 @@ void strzelanie_gracza()
         cout << "Zla kolumna lub rzad " << endl;
         return;
     }
-    if (p[r-1][k-1] == 5 || p[r-1][k-1] == 2 || p[r-1][k-1] == 3)
+    if (p[r - 1][k - 1] == 5 || p[r - 1][k - 1] == 2 || p[r - 1][k - 1] == 3)
     {
-        cout << "Juz strzelales w to pole - tracisz kolejke"<<endl;
+        cout << "Juz strzelales w to pole - tracisz kolejke" << endl;
         return;
     }
     if (p[r - 1][k - 1] == 0)
@@ -1200,6 +1200,10 @@ int main()
             cin >> d;
             cout << "Kolumna: ";
             cin >> c;
+            if (c == 0)
+                c = 1;
+            if (d == 0)
+                d = 1;
             c = c - 1;
             d = d - 1;
             if (d > 6)
@@ -1220,6 +1224,10 @@ int main()
             cin >> d;
             cout << "Kolumna: ";
             cin >> c;
+            if (c == 0)
+                c = 1;
+            if (d == 0)
+                d = 1;
             c = c - 1;
             d = d - 1;
             if (c > 6)
@@ -1252,6 +1260,10 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
+                if (c == 0)
+                    c = 1;
+                if (d == 0)
+                    d = 1;
                 c = c - 1;
                 d = d - 1;
                 if (d > 7)
@@ -1278,6 +1290,10 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
+                if (c == 0)
+                    c = 1;
+                if (d == 0)
+                    d = 1;
                 c = c - 1;
                 d = d - 1;
                 if (c > 7)
@@ -1318,6 +1334,10 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
+                if (c == 0)
+                    c = 1;
+                if (d == 0)
+                    d = 1;
                 c = c - 1;
                 d = d - 1;
                 if (d > 8)
@@ -1343,6 +1363,11 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
+                if (c == 0)
+                    c = 1;
+                if (d == 0)
+                    d = 1;
+
                 c = c - 1;
                 d = d - 1;
                 if (c > 8)
@@ -1379,6 +1404,10 @@ int main()
             cin >> d;
             cout << "Kolumna: ";
             cin >> c;
+            if (c == 0)
+                c = 1;
+            if (d == 0)
+                d = 1;
             c = c - 1;
             d = d - 1;
 
@@ -1497,16 +1526,16 @@ int main()
         p[b][a] = 11;
     }
     // wyswietlenie planszy wylosowanej
-/*   for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
+    /*   for (int i = 0; i < 10; i++)
         {
-            cout << p[i][j] << " ";
+            for (int j = 0; j < 10; j++)
+            {
+                cout << p[i][j] << " ";
+            }
+            cout << endl;
         }
         cout << endl;
-    }
-    cout << endl;
-*/
+    */
     // losowanie miejsc przez komputer zakonczone
     // strzelanie
     int licz_g, licz_k;
@@ -1530,10 +1559,11 @@ int main()
             }
         }
     } while (licz_k != 0 && licz_g != 0);
-    if(licz_k==0)
+    if (licz_k == 0)
     {
-        cout<<"Wygrales";
+        cout << "Przegrales";
     }
-    else  if(licz_g==0) cout<<"Przegrales";
+    else if (licz_g == 0)
+        cout << "Wygrales";
 }
 // wyłączanie programu ZAWSZE ctrl+c
