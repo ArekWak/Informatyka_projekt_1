@@ -19,21 +19,21 @@
 // trzymasztowe-poziom
 // czteromasztowe-pion
 using namespace std;
-int t[10][10];
-int p[10][10];
+int t[20][20];
+int p[20][20];
 int ost = 3;
 int ost_rzad, ost_kol;
 void wyswietl_gracz()
 {
     cout << "        TWOJA PLANSZA                          PLANSZA KOMPUTERA" << endl
          << "     1. 2. 3. 4. 5. 6. 7. 8. 9. 10.         1. 2. 3. 4. 5. 6. 7. 8. 9. 10." << endl;
-    for (int i = 0; i < 10; i++)
+    for (int i = 5; i < 15; i++)
     {
-        if (i < 9)
-            cout << i + 1 << ".  ";
-        if (i == 9)
+        if (i < 14)
+            cout << i - 4 << ".  ";
+        if (i == 14)
             cout << "10. ";
-        for (int j = 0; j < 10; j++)
+        for (int j = 5; j < 15; j++)
         {
             if (t[i][j] == 0 || t[i][j] == 4)
                 cout << "[_]";
@@ -46,11 +46,11 @@ void wyswietl_gracz()
             if (t[i][j] == 5)
                 cout << "[-]";
         }
-        if (i < 9)
-            cout << "     " << i + 1 << ".  ";
-        if (i == 9)
+        if (i < 14)
+            cout << "     " << i - 4 << ".  ";
+        if (i == 14)
             cout << "     10. ";
-        for (int j = 0; j < 10; j++)
+        for (int j = 5; j < 15; j++)
         {
             if (p[i][j] == 0 || p[i][j] == 4 || p[i][j] == 14 || p[i][j] == 13 || p[i][j] == 12 || p[i][j] == 11)
                 cout << "[_]";
@@ -73,12 +73,16 @@ void strzelanie_komputer()
         for (int i = 1; i < 2; i++)
         {
             int rz = rand() % 10, kol = rand() % 10;
+            rz = rz + 5;
+            kol = kol + 5;
             if (t[rz][kol] == 4 || t[rz][kol] == 3 || t[rz][kol] == 2)
             {
                 do
                 {
                     rz = rand() % 10;
                     kol = rand() % 10;
+                    rz = rz + 5;
+                    kol = kol + 5;
                 } while (t[rz][kol] != 4 && t[rz][kol] != 3 && t[rz][kol] != 2 && t[rz][kol] != 5);
             }
 
@@ -1008,6 +1012,8 @@ void strzelanie_gracza()
         cout << "Zla kolumna lub rzad " << endl;
         return;
     }
+    r = r + 5;
+    k = k + 5;
     if (p[r - 1][k - 1] == 5 || p[r - 1][k - 1] == 2 || p[r - 1][k - 1] == 3)
     {
         cout << "Juz strzelales w to pole - tracisz kolejke" << endl;
@@ -1200,9 +1206,9 @@ int main()
             cin >> d;
             cout << "Kolumna: ";
             cin >> c;
-            if (c == 0)
+            if (c < 1)
                 c = 1;
-            if (d == 0)
+            if (d < 1)
                 d = 1;
             c = c - 1;
             d = d - 1;
@@ -1211,6 +1217,8 @@ int main()
                 d = 6;
                 cout << "Zly numer rzedu -- rzad wynosi 7" << endl;
             }
+            d = d + 5;
+            c = c + 5;
             t[d][c] = 14;
             t[d + 1][c] = 14;
             t[d + 2][c] = 14;
@@ -1224,9 +1232,9 @@ int main()
             cin >> d;
             cout << "Kolumna: ";
             cin >> c;
-            if (c == 0)
+            if (c < 1)
                 c = 1;
-            if (d == 0)
+            if (d < 1)
                 d = 1;
             c = c - 1;
             d = d - 1;
@@ -1235,6 +1243,8 @@ int main()
                 c = 6;
                 cout << "Zly numer kolumny -- kolumna wynosi 7" << endl;
             }
+            d = d + 5;
+            c = c + 5;
             t[d][c] = 14;
             t[d][c + 1] = 14;
             t[d][c + 2] = 14;
@@ -1260,9 +1270,9 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
-                if (c == 0)
+                if (c < 1)
                     c = 1;
-                if (d == 0)
+                if (d < 1)
                     d = 1;
                 c = c - 1;
                 d = d - 1;
@@ -1271,6 +1281,8 @@ int main()
                     d = 7;
                     cout << "Zly numer rzedu -- rzad wynosi 8" << endl;
                 }
+                d = d + 5;
+                c = c + 5;
                 if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c - 1] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d + 1][c - 1] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 2][c - 1] == 0 && t[d + 2][c] == 0 && t[d + 2][c + 1] == 0 && t[d + 3][c - 1] == 0 && t[d + 3][c] == 0 && t[d + 3][c + 1] == 0)
                 {
                     t[d][c] = 13;
@@ -1290,9 +1302,9 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
-                if (c == 0)
+                if (c < 1)
                     c = 1;
-                if (d == 0)
+                if (d < 1)
                     d = 1;
                 c = c - 1;
                 d = d - 1;
@@ -1301,6 +1313,8 @@ int main()
                     c = 7;
                     cout << "Zly numer kolumny -- kolumna wynosi 8" << endl;
                 }
+                d = d + 5;
+                c = c + 5;
                 if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c + 2] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d][c + 2] == 0 && t[d][c + 3] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 1][c + 2] == 0 && t[d - 1][c - 1] == 0 && t[d + 1][c - 1] == 0 && t[d - 1][c + 3] == 0 && t[d + 1][c + 3] == 0)
                 {
                     t[d][c] = 13;
@@ -1334,9 +1348,9 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
-                if (c == 0)
+                if (c < 1)
                     c = 1;
-                if (d == 0)
+                if (d < 1)
                     d = 1;
                 c = c - 1;
                 d = d - 1;
@@ -1345,6 +1359,8 @@ int main()
                     d = 8;
                     cout << "Zly numer rzedu -- rzad wynosi 9" << endl;
                 }
+                d = d + 5;
+                c = c + 5;
                 if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c - 1] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d + 1][c - 1] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 2][c - 1] == 0 && t[d + 2][c] == 0 && t[d + 2][c + 1] == 0)
                 {
                     t[d][c] = 12;
@@ -1363,9 +1379,9 @@ int main()
                 cin >> d;
                 cout << "Kolumna: ";
                 cin >> c;
-                if (c == 0)
+                if (c < 1)
                     c = 1;
-                if (d == 0)
+                if (d < 1)
                     d = 1;
 
                 c = c - 1;
@@ -1375,6 +1391,8 @@ int main()
                     c = 8;
                     cout << "Zly numer kolumny -- kolumna wynosi 9" << endl;
                 }
+                d = d + 5;
+                c = c + 5;
                 if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c + 2] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d][c + 2] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0 && t[d + 1][c + 2] == 0 && t[d - 1][c - 1] == 0 && t[d + 1][c - 1] == 0)
                 {
                     t[d][c] = 12;
@@ -1404,13 +1422,14 @@ int main()
             cin >> d;
             cout << "Kolumna: ";
             cin >> c;
-            if (c == 0)
+            if (c < 1)
                 c = 1;
-            if (d == 0)
+            if (d < 1)
                 d = 1;
             c = c - 1;
             d = d - 1;
-
+            d = d + 5;
+            c = c + 5;
             if (t[d - 1][c] == 0 && t[d - 1][c + 1] == 0 && t[d - 1][c - 1] == 0 && t[d][c - 1] == 0 && t[d][c] == 0 && t[d][c + 1] == 0 && t[d + 1][c - 1] == 0 && t[d + 1][c] == 0 && t[d + 1][c + 1] == 0)
             {
                 t[d][c] = 11;
@@ -1429,6 +1448,8 @@ int main()
         int hk = rand() % 10, hr = rand() % 10;
         if (hr > 6)
             hr = 6;
+        hk = hk + 5;
+        hr = hr + 5;
         t[hr][hk] = 14;
         t[hr + 1][hk] = 14;
         t[hr + 2][hk] = 14;
@@ -1441,6 +1462,8 @@ int main()
                 hk = rand() % 10, hr = rand() % 10;
                 if (hk > 7)
                     hk = 7;
+                hk = hk + 5;
+                hr = hr + 5;
             } while (t[hr - 1][hk] != 0 || t[hr - 1][hk + 1] != 0 || t[hr - 1][hk + 2] != 0 || t[hr][hk - 1] != 0 || t[hr][hk] != 0 || t[hr][hk + 1] != 0 || t[hr][hk + 2] != 0 || t[hr][hk + 3] != 0 || t[hr + 1][hk] != 0 || t[hr + 1][hk + 1] != 0 || t[hr + 1][hk + 2] != 0 || t[hr - 1][hk - 1] != 0 || t[hr + 1][hk - 1] != 0 || t[hr - 1][hk + 3] != 0 || t[hr + 1][hk + 3] != 0);
 
             t[hr][hk] = 13;
@@ -1455,6 +1478,8 @@ int main()
                 hk = rand() % 10, hr = rand() % 10;
                 if (hr > 8)
                     hr = 8;
+                hk = hk + 5;
+                hr = hr + 5;
             } while (t[hr - 1][hk] != 0 || t[hr][hk - 1] != 0 || t[hr][hk + 1] != 0 || t[hr][hk] != 0 || t[hr + 1][hk + 1] != 0 || t[hr + 1][hk - 1] != 0 || t[hr + 1][hk] != 0 || t[hr + 2][hk] != 0 || t[hr - 1][hk - 1] != 0 || t[hr - 1][hk + 1] != 0 || t[hr + 2][hk - 1] != 0 || t[hr + 2][hk + 1] != 0);
 
             t[hr][hk] = 12;
@@ -1466,6 +1491,8 @@ int main()
             do
             {
                 hk = rand() % 10, hr = rand() % 10;
+                hk = hk + 5;
+                hr = hr + 5;
             } while (t[hr - 1][hk - 1] != 0 || t[hr - 1][hk] != 0 || t[hr - 1][hk + 1] != 0 || t[hr][hk - 1] != 0 || t[hr][hk] != 0 || t[hr][hk + 1] != 0 || t[hr + 1][hk - 1] != 0 || t[hr + 1][hk] != 0 || t[hr + 1][hk + 1] != 0);
 
             t[hr][hk] = 11;
@@ -1484,6 +1511,8 @@ int main()
     int a = rand() % 10, b = rand() % 10;
     if (b > 5)
         b = 5;
+    b = b + 5;
+    a = a + 5;
     p[b][a] = 14;
     p[b + 1][a] = 14;
     p[b + 2][a] = 14;
@@ -1496,6 +1525,8 @@ int main()
             a = rand() % 10, b = rand() % 10;
             if (a > 7)
                 a = 7;
+            b = b + 5;
+            a = a + 5;
         } while (p[b - 1][a] != 0 || p[b - 1][a + 1] != 0 || p[b - 1][a + 2] != 0 || p[b][a - 1] != 0 || p[b][a] != 0 || p[b][a + 1] != 0 || p[b][a + 2] != 0 || p[b][a + 3] != 0 || p[b + 1][a] != 0 || p[b + 1][a + 1] != 0 || p[b + 1][a + 2] != 0 || p[b - 1][a - 1] != 0 || p[b + 1][a - 1] != 0 || p[b - 1][a + 3] != 0 || p[b + 1][a + 3] != 0);
 
         p[b][a] = 13;
@@ -1510,6 +1541,8 @@ int main()
             a = rand() % 10, b = rand() % 10;
             if (b > 8)
                 b = 8;
+            b = b + 5;
+            a = a + 5;
         } while (p[b - 1][a] != 0 || p[b][a - 1] != 0 || p[b][a + 1] != 0 || p[b][a] != 0 || p[b + 1][a + 1] != 0 || p[b + 1][a - 1] != 0 || p[b + 1][a] != 0 || p[b + 2][a] != 0 || p[b - 1][a - 1] != 0 || p[b - 1][a + 1] != 0 || p[b + 2][a - 1] != 0 || p[b + 2][a + 1] != 0);
 
         p[b][a] = 12;
@@ -1521,6 +1554,8 @@ int main()
         do
         {
             a = rand() % 10, b = rand() % 10;
+            b = b + 5;
+            a = a + 5;
         } while (p[b - 1][a - 1] != 0 || p[b - 1][a] != 0 || p[b - 1][a + 1] != 0 || p[b][a - 1] != 0 || p[b][a] != 0 || p[b][a + 1] != 0 || p[b + 1][a - 1] != 0 || p[b + 1][a] != 0 || p[b + 1][a + 1] != 0);
 
         p[b][a] = 11;
@@ -1548,9 +1583,9 @@ int main()
         cout << "Teraz kolej przeciwnika" << endl;
         strzelanie_komputer();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 5; i < 15; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 5; j < 15; j++)
             {
                 if (p[i][j] == 14 || p[i][j] == 13 || p[i][j] == 12 || p[i][j] == 11)
                     licz_g++;
