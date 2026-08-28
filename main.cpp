@@ -88,17 +88,17 @@ void strzelanie_komputer()
 
             if (t[rz][kol] == 0)
             {
-                cout << "Rzad: " << rz + 1 << " Kolumna: " << kol + 1 << endl;
+                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 5;
             }
             else if (t[rz][kol] == 11)
             {
-                cout << "Rzad: " << rz + 1 << " Kolumna: " << kol + 1 << endl;
+                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol + -4 << endl;
                 t[rz][kol] = 3;
             }
             else if (t[rz][kol] == 12)
             {
-                cout << "Rzad: " << rz + 1 << " Kolumna: " << kol + 1 << endl;
+                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 2;
                 ost = 12;
                 ost_rzad = rz;
@@ -106,7 +106,7 @@ void strzelanie_komputer()
             }
             else if (t[rz][kol] == 13)
             {
-                cout << "Rzad: " << rz + 1 << " Kolumna: " << kol + 1 << endl;
+                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 2;
                 ost = 13;
                 ost_rzad = rz;
@@ -114,7 +114,7 @@ void strzelanie_komputer()
             }
             else if (t[rz][kol] == 14)
             {
-                cout << "Rzad: " << rz + 1 << " Kolumna: " << kol + 1 << endl;
+                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 2;
                 ost = 14;
                 ost_rzad = rz;
