@@ -1596,9 +1596,9 @@ int main()
     } while (licz_k != 0 && licz_g != 0);
     if (licz_k == 0)
     {
-        cout << "Przegrales";
+        cout << "Wygrales";
     }
     else if (licz_g == 0)
-        cout << "Wygrales";
+        cout << "Przegrales";
 }
 // wyłączanie programu ZAWSZE ctrl+c
