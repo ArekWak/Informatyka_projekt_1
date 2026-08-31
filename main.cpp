@@ -68,6 +68,7 @@ void wyswietl_gracz()
 
 void strzelanie_komputer()
 {
+    int r, k;
     // ostatni => ostatni trafiony
     if (ost == 3) // zatopiony
     {
@@ -97,27 +98,11 @@ void strzelanie_komputer()
                 cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 3;
             }
-            else if (t[rz][kol] == 12)
+            else if (t[rz][kol] == 12 || t[rz][kol] == 13 || t[rz][kol] == 14)
             {
                 cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 2;
-                ost = 12;
-                ost_rzad = rz;
-                ost_kol = kol;
-            }
-            else if (t[rz][kol] == 13)
-            {
-                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
-                t[rz][kol] = 2;
-                ost = 13;
-                ost_rzad = rz;
-                ost_kol = kol;
-            }
-            else if (t[rz][kol] == 14)
-            {
-                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
-                t[rz][kol] = 2;
-                ost = 14;
+                ost = 10;
                 ost_rzad = rz;
                 ost_kol = kol;
             }
@@ -125,161 +110,64 @@ void strzelanie_komputer()
                 i--;
         }
     }
-    else if (ost == 12) // trafiony
+    else if (ost == 10) // trafiony
     {
         for (int i = 0; i < 1; i++)
         {
             int d = rand() % 4;
             if (d == 0)
             {
-                if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
-                    i--;
-                else
-                {
-                    cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 5 << endl;
-                    if (t[ost_rzad][ost_kol - 1] == 0)
-                        t[ost_rzad][ost_kol - 1] = 5;
-                    else if (t[ost_rzad][ost_kol - 1] == 12)
-                    {
-                        t[ost_rzad][ost_kol - 1] = 3;
-                        t[ost_rzad][ost_kol] = 3;
-                        ost = 3;
-                    }
-                }
+                r = ost_rzad;
+                k = ost_kol - 1;
             }
             if (d == 1)
             {
-                if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
-                    i--;
-                else
-                {
-                    cout << "Rzad: " << ost_rzad - 3 << " Kolumna: " << ost_kol - 4 << endl;
-                    if (t[ost_rzad + 1][ost_kol] == 0)
-                        t[ost_rzad + 1][ost_kol] = 5;
-                    else if (t[ost_rzad + 1][ost_kol] == 12)
-                    {
-                        t[ost_rzad + 1][ost_kol] = 3;
-                        t[ost_rzad][ost_kol] = 3;
-                        ost = 3;
-                    }
-                }
+                r = ost_rzad + 1;
+                k = ost_kol;
             }
             if (d == 2)
             {
-                if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
-                    i--;
-                else
-                {
-                    cout << "Rzad: " << ost_rzad - 5 << " Kolumna: " << ost_kol - 4 << endl;
-                    if (t[ost_rzad - 1][ost_kol] == 0)
-                        t[ost_rzad - 1][ost_kol] = 5;
-                    else if (t[ost_rzad - 1][ost_kol] == 12)
-                    {
-                        t[ost_rzad - 1][ost_kol] = 3;
-                        t[ost_rzad][ost_kol] = 3;
-                        ost = 3;
-                    }
-                }
+                r = ost_rzad - 1;
+                k = ost_kol;
             }
             if (d == 3)
             {
-                if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
-                    i--;
-                else
+                r = ost_rzad;
+                k = ost_kol + 1;
+            }
+            if (t[r][k] == 4 || t[r][k] == 5)
+                i--;
+            else
+            {
+                cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                if (t[r][k] == 0)
+                    t[r][k] = 5;
+                else if (t[r][k] == 12)
                 {
-                    cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 3 << endl;
-                    if (t[ost_rzad][ost_kol + 1] == 0)
-                        t[ost_rzad][ost_kol + 1] = 5;
-                    else if (t[ost_rzad][ost_kol + 1] == 12)
-                    {
-                        t[ost_rzad][ost_kol + 1] = 3;
-                        t[ost_rzad][ost_kol] = 3;
-                        ost = 3;
-                    }
+                    t[r][k] = 3;
+                    t[ost_rzad][ost_kol] = 3;
+                    ost = 3;
+                }
+                else if (t[r][k] == 13)
+                {
+                    t[r][k] = 2;
+                    ost_kol = k;
+                    ost_rzad = r;
+                    ;
+                    ost = 23;
+                }
+                else if (t[r][k] == 14)
+                {
+                    t[r][k] = 2;
+                    ost_kol = k;
+                    ost_rzad = r;
+                    ost = 24;
                 }
             }
         }
     }
-    else if (ost == 13) // trafiony
-    {
-        for (int i = 0; i < 1; i++)
-        {
-            int d = rand() % 4;
-            if (d == 0)
-            {
-                if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad][ost_kol - 1] == 0)
-                        t[ost_rzad][ost_kol - 1] = 5;
-                    else if (t[ost_rzad][ost_kol - 1] == 13)
-                    {
-                        t[ost_rzad][ost_kol - 1] = 2;
-                        ost_kol = ost_kol - 1;
-                        ost = 23;
-                    }
-                    else
-                        i--;
-                }
-            }
-            if (d == 1)
-            {
-                if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad + 1][ost_kol] == 0)
-                        t[ost_rzad + 1][ost_kol] = 5;
-                    else if (t[ost_rzad + 1][ost_kol] == 13)
-                    {
-                        t[ost_rzad + 1][ost_kol] = 2;
-                        ost_rzad = ost_rzad + 1;
-                        ost = 23;
-                    }
-                    else
-                        i--;
-                }
-            }
-            if (d == 2)
-            {
-                if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad - 1][ost_kol] == 0)
-                        t[ost_rzad - 1][ost_kol] = 5;
-                    else if (t[ost_rzad - 1][ost_kol] == 13)
-                    {
-                        t[ost_rzad - 1][ost_kol] = 2;
-                        ost_rzad = ost_rzad - 1;
-                        ost = 23;
-                    }
-                    else
-                        i--;
-                }
-            }
-            if (d == 3)
-            {
-                if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad][ost_kol + 1] == 0)
-                        t[ost_rzad][ost_kol + 1] = 5;
-                    else if (t[ost_rzad][ost_kol + 1] == 13)
-                    {
-                        t[ost_rzad][ost_kol + 1] = 2;
-                        ost_kol = ost_kol + 1;
-                        ost = 23;
-                    }
-                    else
-                        i--;
-                }
-            }
-        }
-    }
-    else if (ost == 23) // trafiony
+    
+    else if (ost == 23 || ost == 24) // trafiony
     {
         if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
         {
@@ -292,6 +180,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 5 << endl;
                         if (t[ost_rzad][ost_kol - 1] == 0)
                             t[ost_rzad][ost_kol - 1] = 5;
                         else if (t[ost_rzad][ost_kol - 1] == 13)
@@ -301,8 +190,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad][ost_kol - 1] == 14)
+                        {
+                            t[ost_rzad][ost_kol - 1] = 2;
+                            ost = 34;
+                        }
                     }
                 }
                 if (n == 1)
@@ -311,6 +203,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 2 << endl;
                         if (t[ost_rzad][ost_kol + 2] == 0)
                             t[ost_rzad][ost_kol + 2] = 5;
                         else if (t[ost_rzad][ost_kol + 2] == 13)
@@ -320,8 +213,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad][ost_kol + 2] == 14)
+                        {
+                            t[ost_rzad][ost_kol + 2] = 2;
+                            ost = 34;
+                        }
                     }
                 }
             }
@@ -337,6 +233,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 6 << endl;
                         if (t[ost_rzad][ost_kol - 2] == 0)
                             t[ost_rzad][ost_kol - 2] = 5;
                         else if (t[ost_rzad][ost_kol - 2] == 13)
@@ -346,8 +243,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad][ost_kol - 2] == 14)
+                        {
+                            t[ost_rzad][ost_kol - 2] = 2;
+                            ost = 34;
+                        }
                     }
                 }
                 if (n == 1)
@@ -356,6 +256,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 3 << endl;
                         if (t[ost_rzad][ost_kol + 1] == 0)
                             t[ost_rzad][ost_kol + 1] = 5;
                         else if (t[ost_rzad][ost_kol + 1] == 13)
@@ -365,8 +266,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad][ost_kol + 1] == 14)
+                        {
+                            t[ost_rzad][ost_kol + 1] = 2;
+                            ost = 34;
+                        }
                     }
                 }
             }
@@ -382,6 +286,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 2 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad + 2][ost_kol] == 0)
                             t[ost_rzad + 2][ost_kol] = 5;
                         else if (t[ost_rzad + 2][ost_kol] == 13)
@@ -391,8 +296,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad + 2][ost_kol] == 14)
+                        {
+                            t[ost_rzad + 2][ost_kol] = 2;
+                            ost = 34;
+                        }
                     }
                 }
                 if (n == 1)
@@ -401,6 +309,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 5 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad - 1][ost_kol] == 0)
                             t[ost_rzad - 1][ost_kol] = 5;
                         else if (t[ost_rzad - 1][ost_kol] == 13)
@@ -410,8 +319,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad - 1][ost_kol] == 14)
+                        {
+                            t[ost_rzad - 1][ost_kol] = 2;
+                            ost = 34;
+                        }
                     }
                 }
             }
@@ -427,17 +339,21 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 6 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad - 2][ost_kol] == 0)
                             t[ost_rzad - 2][ost_kol] = 5;
-                        else if (t[ost_rzad - 2][ost_kol] == 13)
+                         else if (t[ost_rzad - 2][ost_kol] == 13)
                         {
                             t[ost_rzad - 2][ost_kol] = 3;
                             t[ost_rzad - 1][ost_kol] = 3;
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
+                        else if (t[ost_rzad - 2][ost_kol] == 14)
+                        {
+                            t[ost_rzad - 2][ost_kol] = 2;
+                            ost = 34;
+                        }
                     }
                 }
                 if (n == 1)
@@ -446,6 +362,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 3 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad + 1][ost_kol] == 0)
                             t[ost_rzad + 1][ost_kol] = 5;
                         else if (t[ost_rzad + 1][ost_kol] == 13)
@@ -455,254 +372,11 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
-                    }
-                }
-            }
-        }
-    }
-    else if (ost == 14) // trafiony
-    {
-        for (int i = 0; i < 1; i++)
-        {
-            int d = rand() % 4;
-            if (d == 0)
-            {
-                if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad][ost_kol - 1] == 0)
-                        t[ost_rzad][ost_kol - 1] = 5;
-                    else if (t[ost_rzad][ost_kol - 1] == 14)
-                    {
-                        t[ost_rzad][ost_kol - 1] = 2;
-                        ost_kol = ost_kol - 1;
-                        ost = 24;
-                    }
-                    else
-                        i--;
-                }
-            }
-            if (d == 1)
-            {
-                if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad + 1][ost_kol] == 0)
-                        t[ost_rzad + 1][ost_kol] = 5;
-                    else if (t[ost_rzad + 1][ost_kol] == 14)
-                    {
-                        t[ost_rzad + 1][ost_kol] = 2;
-                        ost_rzad = ost_rzad + 1;
-                        ost = 24;
-                    }
-                    else
-                        i--;
-                }
-            }
-            if (d == 2)
-            {
-                if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad - 1][ost_kol] == 0)
-                        t[ost_rzad - 1][ost_kol] = 5;
-                    else if (t[ost_rzad - 1][ost_kol] == 14)
-                    {
-                        t[ost_rzad - 1][ost_kol] = 2;
-                        ost_rzad = ost_rzad - 1;
-                        ost = 24;
-                    }
-                    else
-                        i--;
-                }
-            }
-            if (d == 3)
-            {
-                if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
-                    i--;
-                else
-                {
-                    if (t[ost_rzad][ost_kol + 1] == 0)
-                        t[ost_rzad][ost_kol + 1] = 5;
-                    else if (t[ost_rzad][ost_kol + 1] == 14)
-                    {
-                        t[ost_rzad][ost_kol + 1] = 2;
-                        ost_kol = ost_kol + 1;
-                        ost = 24;
-                    }
-                    else
-                        i--;
-                }
-            }
-        }
-    }
-    else if (ost == 24) // trafiony
-    {
-        if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
-            {
-                int n = rand() % 2;
-                if (n == 0)
-                {
-                    if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad][ost_kol - 1] == 0)
-                            t[ost_rzad][ost_kol - 1] = 5;
-                        else if (t[ost_rzad][ost_kol - 1] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 1] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-                if (n == 1)
-                {
-                    if (t[ost_rzad][ost_kol + 2] == 4 || t[ost_rzad][ost_kol + 2] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad][ost_kol + 2] == 0)
-                            t[ost_rzad][ost_kol + 2] = 5;
-                        else if (t[ost_rzad][ost_kol + 2] == 14)
-                        {
-                            t[ost_rzad][ost_kol + 2] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-            }
-        }
-        if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
-            {
-                int n = rand() % 2;
-                if (n == 0)
-                {
-                    if (t[ost_rzad][ost_kol - 2] == 4 || t[ost_rzad][ost_kol - 2] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad][ost_kol - 2] == 0)
-                            t[ost_rzad][ost_kol - 2] = 5;
-                        else if (t[ost_rzad][ost_kol - 2] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 2] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-                if (n == 1)
-                {
-                    if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad][ost_kol + 1] == 0)
-                            t[ost_rzad][ost_kol + 1] = 5;
-                        else if (t[ost_rzad][ost_kol + 1] == 14)
-                        {
-                            t[ost_rzad][ost_kol + 1] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-            }
-        }
-        if (t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
-            {
-                int n = rand() % 2;
-                if (n == 0)
-                {
-                    if (t[ost_rzad + 2][ost_kol] == 4 || t[ost_rzad + 2][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad + 2][ost_kol] == 0)
-                            t[ost_rzad + 2][ost_kol] = 5;
-                        else if (t[ost_rzad + 2][ost_kol] == 14)
-                        {
-                            t[ost_rzad + 2][ost_kol] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-                if (n == 1)
-                {
-                    if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad - 1][ost_kol] == 0)
-                            t[ost_rzad - 1][ost_kol] = 5;
-                        else if (t[ost_rzad - 1][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 1][ost_kol] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-            }
-        }
-        if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
-            {
-                int n = rand() % 2;
-                if (n == 0)
-                {
-                    if (t[ost_rzad - 2][ost_kol] == 4 || t[ost_rzad - 2][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad - 2][ost_kol] == 0)
-                            t[ost_rzad - 2][ost_kol] = 5;
-                        else if (t[ost_rzad - 2][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 2][ost_kol] = 2;
-                            ost = 34;
-                        }
-                        else
-                            i--;
-                    }
-                }
-                if (n == 1)
-                {
-                    if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        if (t[ost_rzad + 1][ost_kol] == 0)
-                            t[ost_rzad + 1][ost_kol] = 5;
                         else if (t[ost_rzad + 1][ost_kol] == 14)
                         {
                             t[ost_rzad + 1][ost_kol] = 2;
                             ost = 34;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -721,6 +395,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 7 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad - 3][ost_kol] == 0)
                             t[ost_rzad - 3][ost_kol] = 5;
                         else if (t[ost_rzad - 3][ost_kol] == 14)
@@ -731,8 +406,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
                 if (n == 1)
@@ -741,6 +414,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 3 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad + 1][ost_kol] == 0)
                             t[ost_rzad + 1][ost_kol] = 5;
                         else if (t[ost_rzad + 1][ost_kol] == 14)
@@ -751,8 +425,6 @@ void strzelanie_komputer()
                             t[ost_rzad + 1][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -768,6 +440,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 6 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad - 2][ost_kol] == 0)
                             t[ost_rzad - 2][ost_kol] = 5;
                         else if (t[ost_rzad - 2][ost_kol] == 14)
@@ -778,8 +451,6 @@ void strzelanie_komputer()
                             t[ost_rzad + 1][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
                 if (n == 1)
@@ -788,6 +459,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 2 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad + 2][ost_kol] == 0)
                             t[ost_rzad + 2][ost_kol] = 5;
                         else if (t[ost_rzad + 2][ost_kol] == 14)
@@ -798,8 +470,6 @@ void strzelanie_komputer()
                             t[ost_rzad - 1][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -815,6 +485,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 1 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad + 3][ost_kol] == 0)
                             t[ost_rzad + 3][ost_kol] = 5;
                         else if (t[ost_rzad + 3][ost_kol] == 14)
@@ -825,8 +496,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
                 if (n == 1)
@@ -835,6 +504,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 5 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad - 1][ost_kol] == 0)
                             t[ost_rzad - 1][ost_kol] = 5;
                         else if (t[ost_rzad - 1][ost_kol] == 14)
@@ -845,8 +515,6 @@ void strzelanie_komputer()
                             t[ost_rzad + 2][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -862,6 +530,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 7 << endl;
                         if (t[ost_rzad][ost_kol - 3] == 0)
                             t[ost_rzad][ost_kol - 3] = 5;
                         else if (t[ost_rzad][ost_kol - 3] == 14)
@@ -872,8 +541,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
                 if (n == 1)
@@ -882,6 +549,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 3 << endl;
                         if (t[ost_rzad][ost_kol + 1] == 0)
                             t[ost_rzad][ost_kol + 1] = 5;
                         else if (t[ost_rzad][ost_kol + 1] == 14)
@@ -892,8 +560,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol + 1] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -909,6 +575,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 6 << endl;
                         if (t[ost_rzad][ost_kol - 2] == 0)
                             t[ost_rzad][ost_kol - 2] = 5;
                         else if (t[ost_rzad][ost_kol - 2] == 14)
@@ -919,8 +586,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol + 1] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
                 if (n == 1)
@@ -929,6 +594,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 2 << endl;
                         if (t[ost_rzad][ost_kol + 2] == 0)
                             t[ost_rzad][ost_kol + 2] = 5;
                         else if (t[ost_rzad][ost_kol + 2] == 14)
@@ -939,8 +605,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol - 1] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -956,6 +620,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 1 << " Kolumna: " << ost_kol - 4 << endl;
                         if (t[ost_rzad][ost_kol + 3] == 0)
                             t[ost_rzad][ost_kol + 3] = 5;
                         else if (t[ost_rzad][ost_kol + 3] == 14)
@@ -966,8 +631,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
                 if (n == 1)
@@ -976,6 +639,7 @@ void strzelanie_komputer()
                         i--;
                     else
                     {
+                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 5 << endl;
                         if (t[ost_rzad][ost_kol - 1] == 0)
                             t[ost_rzad][ost_kol - 1] = 5;
                         else if (t[ost_rzad][ost_kol - 1] == 14)
@@ -986,8 +650,6 @@ void strzelanie_komputer()
                             t[ost_rzad][ost_kol + 2] = 3;
                             ost = 3;
                         }
-                        else
-                            i--;
                     }
                 }
             }
@@ -1624,3 +1286,346 @@ int main()
         cout << "Wygrales";
 }
 // wyłączanie programu ZAWSZE ctrl+c
+
+
+
+
+
+
+    else if (ost == 23 || ost == 24) // trafiony
+    {
+        for(int i = 0; i < 1; i++){
+        int n = rand() % 2;
+        if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+
+                if (n == 0)
+                {
+                    r=ost_rzad;
+                    k=ost_kol - 1;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad;
+                    k=ost_kol + 2;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                    else
+                    {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 13)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad][ost_kol + 1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else if (t[r][k] == 14)
+                        {
+                            t[r][k] = 2;
+                            ost = 34;
+                        }
+                    }
+        }
+        if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+            if (n == 0)
+                {
+                    r=ost_rzad;
+                    k=ost_kol - 2;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad;
+                    k=ost_kol + 1;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                    else
+                    {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 13)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad][ost_kol - 1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else if (t[r][k] == 14)
+                        {
+                            t[r][k] = 2;
+                            ost = 34;
+                        }
+                    }
+        }
+        if (t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+            if (n == 0)
+                {
+                    r=ost_rzad +2;
+                    k=ost_kol ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad-1;
+                    k=ost_kol;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                    else
+                    {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 13)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad+1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else if (t[r][k] == 14)
+                        {
+                            t[r][k] = 2;
+                            ost = 34;
+                        }
+                    }
+        }
+        if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
+        {
+                       if (n == 0)
+                {
+                    r=ost_rzad -2;
+                    k=ost_kol ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad+1;
+                    k=ost_kol;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                    else
+                    {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 13)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad-1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                        else if (t[r][k] == 14)
+                        {
+                            t[r][k] = 2;
+                            ost = 34;
+                        }
+                    }
+        }
+    }
+    }
+
+
+
+     else if (ost == 34) // trafiony
+        {
+        for (int i = 0; i < 1; i++)
+        {
+        int n = rand() % 2;
+            if (t[ost_rzad - 2][ost_kol] == 2 && t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
+            {
+                 if (n == 0)
+                {
+                    r=ost_rzad -3;
+                    k=ost_kol ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad+1;
+                    k=ost_kol;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                else
+                {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 14)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad-2][ost_kol] = 3;
+                            t[ost_rzad-1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                }
+            }
+            if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2)
+            {
+                if (n == 0)
+                {
+                    r=ost_rzad -2;
+                    k=ost_kol ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad+2;
+                    k=ost_kol;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                else
+                {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 14)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad+1][ost_kol] = 3;
+                            t[ost_rzad-1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                }
+            }
+            if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad + 2][ost_kol] == 2)
+            {
+                    if (n == 0)
+                {
+                    r=ost_rzad -1;
+                    k=ost_kol ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad+3;
+                    k=ost_kol;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                else
+                {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 14)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad+2][ost_kol] = 3;
+                            t[ost_rzad+1][ost_kol] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                }
+            }
+            if (t[ost_rzad][ost_kol - 2] == 2 && t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
+            {
+                if (n == 0)
+                {
+                    r=ost_rzad;
+                    k=ost_kol -3 ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad;
+                    k=ost_kol+1;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                else
+                {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 14)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad][ost_kol-2] = 3;
+                            t[ost_rzad][ost_kol-1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                } 
+            }
+            if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2)
+            {
+                 if (n == 0)
+                {
+                    r=ost_rzad;
+                    k=ost_kol -2 ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad;
+                    k=ost_kol+2;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                else
+                {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 14)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad][ost_kol+1] = 3;
+                            t[ost_rzad][ost_kol-1] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                } 
+            }
+            if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol + 2] == 2)
+            {
+                if (n == 0)
+                {
+                    r=ost_rzad;
+                    k=ost_kol -1 ;
+                }
+                if (n == 1)
+                {
+                    r=ost_rzad;
+                    k=ost_kol+3;
+                }
+
+                 if (t[r][k] == 4 || t[r][k] == 5)
+                        i--;
+                else
+                {
+                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                        if (t[r][k] == 0)
+                            t[r][k] = 5;
+                        else if (t[r][k] == 14)
+                        {
+                            t[k][r] = 3;
+                            t[ost_rzad][ost_kol+1] = 3;
+                            t[ost_rzad][ost_kol+2] = 3;
+                            t[ost_rzad][ost_kol] = 3;
+                            ost = 3;
+                        }
+                }       
+            }
+        
+         }
+    }
+
+
+
