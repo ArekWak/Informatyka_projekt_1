@@ -1,5 +1,6 @@
 #include <iostream>
 #include <bits/stdc++.h>
+#include <windows.h>
 // 0-->pusto
 // 11-->statek jednomasztowy
 // 12-->statek dwumasztowy
@@ -93,7 +94,7 @@ void strzelanie_komputer()
             }
             else if (t[rz][kol] == 11)
             {
-                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol + -4 << endl;
+                cout << "Rzad: " << rz - 4 << " Kolumna: " << kol - 4 << endl;
                 t[rz][kol] = 3;
             }
             else if (t[rz][kol] == 12)
@@ -135,6 +136,7 @@ void strzelanie_komputer()
                     i--;
                 else
                 {
+                    cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 5 << endl;
                     if (t[ost_rzad][ost_kol - 1] == 0)
                         t[ost_rzad][ost_kol - 1] = 5;
                     else if (t[ost_rzad][ost_kol - 1] == 12)
@@ -143,8 +145,6 @@ void strzelanie_komputer()
                         t[ost_rzad][ost_kol] = 3;
                         ost = 3;
                     }
-                    else
-                        i--;
                 }
             }
             if (d == 1)
@@ -153,6 +153,7 @@ void strzelanie_komputer()
                     i--;
                 else
                 {
+                    cout << "Rzad: " << ost_rzad - 3 << " Kolumna: " << ost_kol - 4 << endl;
                     if (t[ost_rzad + 1][ost_kol] == 0)
                         t[ost_rzad + 1][ost_kol] = 5;
                     else if (t[ost_rzad + 1][ost_kol] == 12)
@@ -161,8 +162,6 @@ void strzelanie_komputer()
                         t[ost_rzad][ost_kol] = 3;
                         ost = 3;
                     }
-                    else
-                        i--;
                 }
             }
             if (d == 2)
@@ -171,6 +170,7 @@ void strzelanie_komputer()
                     i--;
                 else
                 {
+                    cout << "Rzad: " << ost_rzad - 5 << " Kolumna: " << ost_kol - 4 << endl;
                     if (t[ost_rzad - 1][ost_kol] == 0)
                         t[ost_rzad - 1][ost_kol] = 5;
                     else if (t[ost_rzad - 1][ost_kol] == 12)
@@ -179,8 +179,6 @@ void strzelanie_komputer()
                         t[ost_rzad][ost_kol] = 3;
                         ost = 3;
                     }
-                    else
-                        i--;
                 }
             }
             if (d == 3)
@@ -189,6 +187,7 @@ void strzelanie_komputer()
                     i--;
                 else
                 {
+                    cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 3 << endl;
                     if (t[ost_rzad][ost_kol + 1] == 0)
                         t[ost_rzad][ost_kol + 1] = 5;
                     else if (t[ost_rzad][ost_kol + 1] == 12)
@@ -197,8 +196,6 @@ void strzelanie_komputer()
                         t[ost_rzad][ost_kol] = 3;
                         ost = 3;
                     }
-                    else
-                        i--;
                 }
             }
         }
@@ -1183,8 +1180,28 @@ void strzelanie_gracza()
 
 int main()
 {
-    srand(time(NULL));
+    for (int i = 4; i < 15; i++)
+    {
+        t[i][4] = 4;
+    }
 
+    for (int i = 4; i < 15; i++)
+    {
+        t[4][i] = 4;
+    }
+
+    for (int i = 4; i < 15; i++)
+    {
+        t[i][15] = 4;
+    }
+
+    for (int i = 4; i < 15; i++)
+    {
+        t[15][i] = 4;
+    }
+
+    srand(time(NULL));
+    system("cls");
     cout << "Witaj marynarzu" << endl;
     cout << "Umiesc statki losowo -> 1," << endl;
     cout << "umiesc statki recznie -> 0" << endl;
@@ -1578,9 +1595,14 @@ int main()
     {
         licz_g = 0, licz_k = 0;
         // strzelanie gracza
-        cout << "Teraz twoj strzal" << endl;
+        cout << endl
+             << endl
+             << "Teraz twoj strzal" << endl;
         strzelanie_gracza();
-        cout << "Teraz kolej przeciwnika" << endl;
+        cout << endl
+             << endl
+             << "Teraz kolej przeciwnika" << endl;
+        Sleep(1500);
         strzelanie_komputer();
 
         for (int i = 5; i < 15; i++)
@@ -1596,9 +1618,9 @@ int main()
     } while (licz_k != 0 && licz_g != 0);
     if (licz_k == 0)
     {
-        cout << "Wygrales";
+        cout << "Przegrałes";
     }
     else if (licz_g == 0)
-        cout << "Przegrales";
+        cout << "Wygrales";
 }
 // wyłączanie programu ZAWSZE ctrl+c
