@@ -39,11 +39,12 @@ void wyswietl_gracz()
             if (t[i][j] == 0 || t[i][j] == 4)
                 cout << "[_]";
             if (t[i][j] == 14 || t[i][j] == 13 || t[i][j] == 12 || t[i][j] == 11)
-                cout << "[O]";
+                cout << "[" << "\033[33m" << "O" << "\033[0m" << "]";
             if (t[i][j] == 2)
-                cout << "[X]";
+                cout << "[" << "\033[31m" << "X" << "\033[0m" << "]";
             if (t[i][j] == 3)
-                cout << "[Z]";
+                cout << "[" << "\033[34m" << "Z" << "\033[0m" << "]";
+            ;
             if (t[i][j] == 5)
                 cout << "[-]";
         }
@@ -56,11 +57,11 @@ void wyswietl_gracz()
             if (p[i][j] == 0 || p[i][j] == 4 || p[i][j] == 14 || p[i][j] == 13 || p[i][j] == 12 || p[i][j] == 11)
                 cout << "[_]";
             else if (p[i][j] == 2)
-                cout << "[X]";
+                cout << "[" << "\033[31m" << "X" << "\033[0m" << "]";
             else if (p[i][j] == 3)
-                cout << "[Z]";
+                cout << "[" << "\033[34m" << "Z" << "\033[0m" << "]";
             else if (p[i][j] == 5)
-                cout << "[-]";
+                cout << "[" << "\033[33m" << "-" << "\033[0m" << "]";
         }
         cout << endl;
     }
@@ -125,12 +126,12 @@ void strzelanie_komputer()
                 r = ost_rzad + 1;
                 k = ost_kol;
             }
-            if (d == 2)
+            else if (d == 2)
             {
                 r = ost_rzad - 1;
                 k = ost_kol;
             }
-            if (d == 3)
+            else if (d == 3)
             {
                 r = ost_rzad;
                 k = ost_kol + 1;
@@ -166,217 +167,145 @@ void strzelanie_komputer()
             }
         }
     }
-    
     else if (ost == 23 || ost == 24) // trafiony
     {
-        if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
+        for (int i = 0; i < 1; i++)
         {
-            for (int i = 0; i < 1; i++)
+            int n = rand() % 2;
+            if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
             {
-                int n = rand() % 2;
+
                 if (n == 0)
                 {
-                    if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 5 << endl;
-                        if (t[ost_rzad][ost_kol - 1] == 0)
-                            t[ost_rzad][ost_kol - 1] = 5;
-                        else if (t[ost_rzad][ost_kol - 1] == 13)
-                        {
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad][ost_kol - 1] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 1] = 2;
-                            ost = 34;
-                        }
-                    }
+                    r = ost_rzad;
+                    k = ost_kol - 1;
                 }
-                if (n == 1)
+                else if (n == 1)
                 {
-                    if (t[ost_rzad][ost_kol + 2] == 4 || t[ost_rzad][ost_kol + 2] == 5)
-                        i--;
-                    else
+                    r = ost_rzad;
+                    k = ost_kol + 2;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 13)
                     {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 2 << endl;
-                        if (t[ost_rzad][ost_kol + 2] == 0)
-                            t[ost_rzad][ost_kol + 2] = 5;
-                        else if (t[ost_rzad][ost_kol + 2] == 13)
-                        {
-                            t[ost_rzad][ost_kol + 2] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad][ost_kol + 2] == 14)
-                        {
-                            t[ost_rzad][ost_kol + 2] = 2;
-                            ost = 34;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad][ost_kol + 1] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else if (t[r][k] == 14)
+                    {
+                        t[r][k] = 2;
+                        ost = 34;
                     }
                 }
             }
-        }
-        if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad][ost_kol - 2] == 4 || t[ost_rzad][ost_kol - 2] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 6 << endl;
-                        if (t[ost_rzad][ost_kol - 2] == 0)
-                            t[ost_rzad][ost_kol - 2] = 5;
-                        else if (t[ost_rzad][ost_kol - 2] == 13)
-                        {
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol - 2] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad][ost_kol - 2] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 2] = 2;
-                            ost = 34;
-                        }
-                    }
+                    r = ost_rzad;
+                    k = ost_kol - 2;
                 }
-                if (n == 1)
+                else if (n == 1)
                 {
-                    if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
-                        i--;
-                    else
+                    r = ost_rzad;
+                    k = ost_kol + 1;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 13)
                     {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 3 << endl;
-                        if (t[ost_rzad][ost_kol + 1] == 0)
-                            t[ost_rzad][ost_kol + 1] = 5;
-                        else if (t[ost_rzad][ost_kol + 1] == 13)
-                        {
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad][ost_kol + 1] == 14)
-                        {
-                            t[ost_rzad][ost_kol + 1] = 2;
-                            ost = 34;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad][ost_kol - 1] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else if (t[r][k] == 14)
+                    {
+                        t[r][k] = 2;
+                        ost = 34;
                     }
                 }
             }
-        }
-        if (t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad + 2][ost_kol] == 4 || t[ost_rzad + 2][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 2 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad + 2][ost_kol] == 0)
-                            t[ost_rzad + 2][ost_kol] = 5;
-                        else if (t[ost_rzad + 2][ost_kol] == 13)
-                        {
-                            t[ost_rzad + 2][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad + 2][ost_kol] == 14)
-                        {
-                            t[ost_rzad + 2][ost_kol] = 2;
-                            ost = 34;
-                        }
-                    }
+                    r = ost_rzad + 2;
+                    k = ost_kol;
                 }
-                if (n == 1)
+                else if (n == 1)
                 {
-                    if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
-                        i--;
-                    else
+                    r = ost_rzad - 1;
+                    k = ost_kol;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 13)
                     {
-                        cout << "Rzad: " << ost_rzad - 5 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad - 1][ost_kol] == 0)
-                            t[ost_rzad - 1][ost_kol] = 5;
-                        else if (t[ost_rzad - 1][ost_kol] == 13)
-                        {
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad - 1][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 1][ost_kol] = 2;
-                            ost = 34;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad + 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else if (t[r][k] == 14)
+                    {
+                        t[r][k] = 2;
+                        ost = 34;
                     }
                 }
             }
-        }
-        if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad - 2][ost_kol] == 4 || t[ost_rzad - 2][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 6 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad - 2][ost_kol] == 0)
-                            t[ost_rzad - 2][ost_kol] = 5;
-                         else if (t[ost_rzad - 2][ost_kol] == 13)
-                        {
-                            t[ost_rzad - 2][ost_kol] = 3;
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad - 2][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 2][ost_kol] = 2;
-                            ost = 34;
-                        }
-                    }
+                    r = ost_rzad - 2;
+                    k = ost_kol;
                 }
-                if (n == 1)
+                else if (n == 1)
                 {
-                    if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
-                        i--;
-                    else
+                    r = ost_rzad + 1;
+                    k = ost_kol;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 13)
                     {
-                        cout << "Rzad: " << ost_rzad - 3 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad + 1][ost_kol] == 0)
-                            t[ost_rzad + 1][ost_kol] = 5;
-                        else if (t[ost_rzad + 1][ost_kol] == 13)
-                        {
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[ost_rzad + 1][ost_kol] == 14)
-                        {
-                            t[ost_rzad + 1][ost_kol] = 2;
-                            ost = 34;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad - 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
+                    }
+                    else if (t[r][k] == 14)
+                    {
+                        t[r][k] = 2;
+                        ost = 34;
                     }
                 }
             }
@@ -384,272 +313,186 @@ void strzelanie_komputer()
     }
     else if (ost == 34) // trafiony
     {
-        if (t[ost_rzad - 2][ost_kol] == 2 && t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
+        for (int i = 0; i < 1; i++)
         {
-            for (int i = 0; i < 1; i++)
+            int n = rand() % 2;
+            if (t[ost_rzad - 2][ost_kol] == 2 && t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad - 3][ost_kol] == 4 || t[ost_rzad - 3][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 7 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad - 3][ost_kol] == 0)
-                            t[ost_rzad - 3][ost_kol] = 5;
-                        else if (t[ost_rzad - 3][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 3][ost_kol] = 3;
-                            t[ost_rzad - 2][ost_kol] = 3;
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                    }
+                    r = ost_rzad - 3;
+                    k = ost_kol;
                 }
                 if (n == 1)
                 {
-                    if (t[ost_rzad + 1][ost_kol] == 4 || t[ost_rzad + 1][ost_kol] == 5)
-                        i--;
-                    else
+                    r = ost_rzad + 1;
+                    k = ost_kol;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 14)
                     {
-                        cout << "Rzad: " << ost_rzad - 3 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad + 1][ost_kol] == 0)
-                            t[ost_rzad + 1][ost_kol] = 5;
-                        else if (t[ost_rzad + 1][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 2][ost_kol] = 3;
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            ost = 3;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad - 2][ost_kol] = 3;
+                        t[ost_rzad - 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
                     }
                 }
             }
-        }
-        if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad - 2][ost_kol] == 4 || t[ost_rzad - 2][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 6 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad - 2][ost_kol] == 0)
-                            t[ost_rzad - 2][ost_kol] = 5;
-                        else if (t[ost_rzad - 2][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 2][ost_kol] = 3;
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            ost = 3;
-                        }
-                    }
+                    r = ost_rzad - 2;
+                    k = ost_kol;
                 }
                 if (n == 1)
                 {
-                    if (t[ost_rzad + 2][ost_kol] == 4 || t[ost_rzad + 2][ost_kol] == 5)
-                        i--;
-                    else
+                    r = ost_rzad + 2;
+                    k = ost_kol;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 14)
                     {
-                        cout << "Rzad: " << ost_rzad - 2 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad + 2][ost_kol] == 0)
-                            t[ost_rzad + 2][ost_kol] = 5;
-                        else if (t[ost_rzad + 2][ost_kol] == 14)
-                        {
-                            t[ost_rzad + 2][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            ost = 3;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad + 1][ost_kol] = 3;
+                        t[ost_rzad - 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
                     }
                 }
             }
-        }
-        if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad + 2][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad + 2][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad + 3][ost_kol] == 4 || t[ost_rzad + 3][ost_kol] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 1 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad + 3][ost_kol] == 0)
-                            t[ost_rzad + 3][ost_kol] = 5;
-                        else if (t[ost_rzad + 3][ost_kol] == 14)
-                        {
-                            t[ost_rzad + 3][ost_kol] = 3;
-                            t[ost_rzad + 2][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                    }
+                    r = ost_rzad - 1;
+                    k = ost_kol;
                 }
                 if (n == 1)
                 {
-                    if (t[ost_rzad - 1][ost_kol] == 4 || t[ost_rzad - 1][ost_kol] == 5)
-                        i--;
-                    else
+                    r = ost_rzad + 3;
+                    k = ost_kol;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 14)
                     {
-                        cout << "Rzad: " << ost_rzad - 5 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad - 1][ost_kol] == 0)
-                            t[ost_rzad - 1][ost_kol] = 5;
-                        else if (t[ost_rzad - 1][ost_kol] == 14)
-                        {
-                            t[ost_rzad - 1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad + 1][ost_kol] = 3;
-                            t[ost_rzad + 2][ost_kol] = 3;
-                            ost = 3;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad + 2][ost_kol] = 3;
+                        t[ost_rzad + 1][ost_kol] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
                     }
                 }
             }
-        }
-        if (t[ost_rzad][ost_kol - 2] == 2 && t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad][ost_kol - 2] == 2 && t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad][ost_kol - 3] == 4 || t[ost_rzad][ost_kol - 3] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 7 << endl;
-                        if (t[ost_rzad][ost_kol - 3] == 0)
-                            t[ost_rzad][ost_kol - 3] = 5;
-                        else if (t[ost_rzad][ost_kol - 3] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 3] = 3;
-                            t[ost_rzad][ost_kol - 2] = 3;
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                    }
+                    r = ost_rzad;
+                    k = ost_kol - 3;
                 }
                 if (n == 1)
                 {
-                    if (t[ost_rzad][ost_kol + 1] == 4 || t[ost_rzad][ost_kol + 1] == 5)
-                        i--;
-                    else
+                    r = ost_rzad;
+                    k = ost_kol + 1;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 14)
                     {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 3 << endl;
-                        if (t[ost_rzad][ost_kol + 1] == 0)
-                            t[ost_rzad][ost_kol + 1] = 5;
-                        else if (t[ost_rzad][ost_kol + 1] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 2] = 3;
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            ost = 3;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad][ost_kol - 2] = 3;
+                        t[ost_rzad][ost_kol - 1] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
                     }
                 }
             }
-        }
-        if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad][ost_kol - 2] == 4 || t[ost_rzad][ost_kol - 2] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 6 << endl;
-                        if (t[ost_rzad][ost_kol - 2] == 0)
-                            t[ost_rzad][ost_kol - 2] = 5;
-                        else if (t[ost_rzad][ost_kol - 2] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 2] = 3;
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            ost = 3;
-                        }
-                    }
+                    r = ost_rzad;
+                    k = ost_kol - 2;
                 }
                 if (n == 1)
                 {
-                    if (t[ost_rzad][ost_kol + 2] == 4 || t[ost_rzad][ost_kol + 2] == 5)
-                        i--;
-                    else
+                    r = ost_rzad;
+                    k = ost_kol + 2;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 14)
                     {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 2 << endl;
-                        if (t[ost_rzad][ost_kol + 2] == 0)
-                            t[ost_rzad][ost_kol + 2] = 5;
-                        else if (t[ost_rzad][ost_kol + 2] == 14)
-                        {
-                            t[ost_rzad][ost_kol + 2] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            ost = 3;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad][ost_kol + 1] = 3;
+                        t[ost_rzad][ost_kol - 1] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
                     }
                 }
             }
-        }
-        if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol + 2] == 2)
-        {
-            for (int i = 0; i < 1; i++)
+            else if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol + 2] == 2)
             {
-                int n = rand() % 2;
                 if (n == 0)
                 {
-                    if (t[ost_rzad][ost_kol + 3] == 4 || t[ost_rzad][ost_kol + 3] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << ost_rzad - 1 << " Kolumna: " << ost_kol - 4 << endl;
-                        if (t[ost_rzad][ost_kol + 3] == 0)
-                            t[ost_rzad][ost_kol + 3] = 5;
-                        else if (t[ost_rzad][ost_kol + 3] == 14)
-                        {
-                            t[ost_rzad][ost_kol + 3] = 3;
-                            t[ost_rzad][ost_kol + 2] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                    }
+                    r = ost_rzad;
+                    k = ost_kol - 1;
                 }
                 if (n == 1)
                 {
-                    if (t[ost_rzad][ost_kol - 1] == 4 || t[ost_rzad][ost_kol - 1] == 5)
-                        i--;
-                    else
+                    r = ost_rzad;
+                    k = ost_kol + 3;
+                }
+
+                if (t[r][k] == 4 || t[r][k] == 5)
+                    i--;
+                else
+                {
+                    cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
+                    if (t[r][k] == 0)
+                        t[r][k] = 5;
+                    else if (t[r][k] == 14)
                     {
-                        cout << "Rzad: " << ost_rzad - 4 << " Kolumna: " << ost_kol - 5 << endl;
-                        if (t[ost_rzad][ost_kol - 1] == 0)
-                            t[ost_rzad][ost_kol - 1] = 5;
-                        else if (t[ost_rzad][ost_kol - 1] == 14)
-                        {
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol + 2] = 3;
-                            ost = 3;
-                        }
+                        t[r][k] = 3;
+                        t[ost_rzad][ost_kol + 1] = 3;
+                        t[ost_rzad][ost_kol + 2] = 3;
+                        t[ost_rzad][ost_kol] = 3;
+                        ost = 3;
                     }
                 }
             }
@@ -668,7 +511,7 @@ void strzelanie_gracza()
     cin >> k;
     if (r < 1 || r > 10 || k < 1 || k > 10)
     {
-        cout << "Zla kolumna lub rzad " << endl;
+        cout << "Niepoprawna kolumna lub rzad - tracisz kolejke" << endl;
         return;
     }
     r = r + 5;
@@ -678,7 +521,7 @@ void strzelanie_gracza()
         cout << "Juz strzelales w to pole - tracisz kolejke" << endl;
         return;
     }
-    if (p[r - 1][k - 1] == 0)
+    else if (p[r - 1][k - 1] == 0)
     {
         cout << "PUDLO!" << endl;
         p[r - 1][k - 1] = 5;
@@ -865,6 +708,7 @@ int main()
     srand(time(NULL));
     system("cls");
     cout << "Witaj marynarzu" << endl;
+
     cout << "Umiesc statki losowo -> 1," << endl;
     cout << "umiesc statki recznie -> 0" << endl;
     int r_l;
@@ -1286,346 +1130,3 @@ int main()
         cout << "Wygrales";
 }
 // wyłączanie programu ZAWSZE ctrl+c
-
-
-
-
-
-
-    else if (ost == 23 || ost == 24) // trafiony
-    {
-        for(int i = 0; i < 1; i++){
-        int n = rand() % 2;
-        if (t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-
-                if (n == 0)
-                {
-                    r=ost_rzad;
-                    k=ost_kol - 1;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad;
-                    k=ost_kol + 2;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 13)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad][ost_kol + 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[r][k] == 14)
-                        {
-                            t[r][k] = 2;
-                            ost = 34;
-                        }
-                    }
-        }
-        if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            if (n == 0)
-                {
-                    r=ost_rzad;
-                    k=ost_kol - 2;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad;
-                    k=ost_kol + 1;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 13)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad][ost_kol - 1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[r][k] == 14)
-                        {
-                            t[r][k] = 2;
-                            ost = 34;
-                        }
-                    }
-        }
-        if (t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-            if (n == 0)
-                {
-                    r=ost_rzad +2;
-                    k=ost_kol ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad-1;
-                    k=ost_kol;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 13)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad+1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[r][k] == 14)
-                        {
-                            t[r][k] = 2;
-                            ost = 34;
-                        }
-                    }
-        }
-        if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-        {
-                       if (n == 0)
-                {
-                    r=ost_rzad -2;
-                    k=ost_kol ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad+1;
-                    k=ost_kol;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                    else
-                    {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 13)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad-1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                        else if (t[r][k] == 14)
-                        {
-                            t[r][k] = 2;
-                            ost = 34;
-                        }
-                    }
-        }
-    }
-    }
-
-
-
-     else if (ost == 34) // trafiony
-        {
-        for (int i = 0; i < 1; i++)
-        {
-        int n = rand() % 2;
-            if (t[ost_rzad - 2][ost_kol] == 2 && t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2)
-            {
-                 if (n == 0)
-                {
-                    r=ost_rzad -3;
-                    k=ost_kol ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad+1;
-                    k=ost_kol;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                else
-                {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 14)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad-2][ost_kol] = 3;
-                            t[ost_rzad-1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                }
-            }
-            if (t[ost_rzad - 1][ost_kol] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2)
-            {
-                if (n == 0)
-                {
-                    r=ost_rzad -2;
-                    k=ost_kol ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad+2;
-                    k=ost_kol;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                else
-                {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 14)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad+1][ost_kol] = 3;
-                            t[ost_rzad-1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                }
-            }
-            if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad + 1][ost_kol] == 2 && t[ost_rzad + 2][ost_kol] == 2)
-            {
-                    if (n == 0)
-                {
-                    r=ost_rzad -1;
-                    k=ost_kol ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad+3;
-                    k=ost_kol;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                else
-                {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 14)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad+2][ost_kol] = 3;
-                            t[ost_rzad+1][ost_kol] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                }
-            }
-            if (t[ost_rzad][ost_kol - 2] == 2 && t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2)
-            {
-                if (n == 0)
-                {
-                    r=ost_rzad;
-                    k=ost_kol -3 ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad;
-                    k=ost_kol+1;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                else
-                {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 14)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad][ost_kol-2] = 3;
-                            t[ost_rzad][ost_kol-1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                } 
-            }
-            if (t[ost_rzad][ost_kol - 1] == 2 && t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2)
-            {
-                 if (n == 0)
-                {
-                    r=ost_rzad;
-                    k=ost_kol -2 ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad;
-                    k=ost_kol+2;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                else
-                {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 14)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad][ost_kol+1] = 3;
-                            t[ost_rzad][ost_kol-1] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                } 
-            }
-            if (t[ost_rzad][ost_kol] == 2 && t[ost_rzad][ost_kol + 1] == 2 && t[ost_rzad][ost_kol + 2] == 2)
-            {
-                if (n == 0)
-                {
-                    r=ost_rzad;
-                    k=ost_kol -1 ;
-                }
-                if (n == 1)
-                {
-                    r=ost_rzad;
-                    k=ost_kol+3;
-                }
-
-                 if (t[r][k] == 4 || t[r][k] == 5)
-                        i--;
-                else
-                {
-                        cout << "Rzad: " << r - 4 << " Kolumna: " << k - 4 << endl;
-                        if (t[r][k] == 0)
-                            t[r][k] = 5;
-                        else if (t[r][k] == 14)
-                        {
-                            t[k][r] = 3;
-                            t[ost_rzad][ost_kol+1] = 3;
-                            t[ost_rzad][ost_kol+2] = 3;
-                            t[ost_rzad][ost_kol] = 3;
-                            ost = 3;
-                        }
-                }       
-            }
-        
-         }
-    }
-
-
-
